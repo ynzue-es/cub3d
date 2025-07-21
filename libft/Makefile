@@ -14,6 +14,8 @@ FILES = ft_strlen \
 		ft_strjoin \
 		ft_split \
 		ft_putendl_fd \
+		ft_strncmp \
+		free_split \
 		get_next_line/get_next_line \
 
 SRCS = $(addsuffix .c, $(FILES))

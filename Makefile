@@ -6,7 +6,7 @@
 #    By: yannis <yannis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:04:02 by yannis            #+#    #+#              #
-#    Updated: 2025/07/21 12:22:53 by yannis           ###   ########.fr        #
+#    Updated: 2025/07/21 15:28:36 by yannis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCDIR = src
 OBJDIR = obj
 
 SRCS = 	main.c \
+		init.c \
 		utils.c \
 		parsing/parse_cub.c \
 
@@ -26,13 +27,15 @@ OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 
 LIBFT = libft/libft.a
 LIBFT_FILES = ft_strlen.c \
-			  ft_strcpy.c \
-			  ft_atoi.c \
-			  ft_substr.c \
-			  ft_strjoin.c \
-			  ft_split.c \
-			  ft_putendl_fd.c \
-			  get_next_line/get_next_line.c \
+			ft_strcpy.c \
+			ft_atoi.c \
+			ft_substr.c \
+			ft_strjoin.c \
+			ft_split.c \
+			ft_putendl_fd.c \
+			ft_strncmp.c \
+			free_split.c \
+			get_next_line/get_next_line.c \
 			  
 LIBFT_SRCS = $(addprefix libft/, $(LIBFT_FILES))
 
