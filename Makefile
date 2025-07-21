@@ -6,41 +6,46 @@
 #    By: yannis <yannis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:04:02 by yannis            #+#    #+#              #
-#    Updated: 2025/07/21 09:04:50 by yannis           ###   ########.fr        #
+#    Updated: 2025/07/21 10:31:15 by yannis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fdf
+NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLXFLAGS = -L/usr/lib -lX11 -lXext -lm
-SRCS = 	src/main.c \
-		get_next_line/get_next_line.c \
-		get_next_line/get_next_line_utils.c \
-		libft/ft_strlen.c \
-		libft/ft_atoi.c \
-		libft/ft_split.c \
-		
-OBJS = $(SRCS:.c=.o)
-MLX = libmlx.a
-HEADER = fdf.h
-GNL_HEADER = get_next_line/get_next_line.h
-LIBFT_HEADER = libft/libft.h
+MLXFLAGS = -Lmlx -lmlx -L/usr/lib -lXext -lX11 -lm
+SRCDIR = src
+OBJDIR = obj
+
+SRCS = 	main.c
+
+SRCFILES = $(addprefix $(SRCDIR)/, $(SRCS))
+OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
+
+MLX = mlx/libmlx.a
+LIBFT = libft/libft.a
+HEADER = cub3d.h
 RM = rm -f
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(MLX)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX) $(MLXFLAGS) -I$(HEADER) -I$(GNL_HEADER) -I$(LIBFT_HEADER)
+$(NAME): $(OBJS) $(MLX) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLXFLAGS) $(LIBFT)
 
-%.o : %.c $(HEADER) $(GNL_HEADER) $(LIBFT_HEADER) $(MLX) Makefile
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER)
+	@mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+	
+$(LIBFT):
+	make -C ./libft
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) -r $(OBJDIR)
+	make -C ./libft clean
 
 fclean: clean
 	$(RM) $(NAME)
+	make -C ./libft fclean
 
 re: fclean all
 

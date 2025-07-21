@@ -6,12 +6,11 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/21 09:33:41 by yannis           ###   ########.fr       */
+/*   Updated: 2025/07/21 09:54:39 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "libft/libft.h"
-# include "mlx.h"
-# include <fcntl.h>
+# include "mlx/mlx.h"
 # include <math.h>
-# include <stdlib.h>
+# include <stdio.h>
