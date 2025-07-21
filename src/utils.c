@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/21 10:43:31 by yannis           ###   ########.fr       */
+/*   Created: 2025/07/21 10:41:47 by yannis            #+#    #+#             */
+/*   Updated: 2025/07/21 10:43:09 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft/libft.h"
-# include "mlx/mlx.h"
-# include <math.h>
-# include <stdio.h>
+#include "../cub3d.h"
 
-/*
-* utils
-*/
+int	check_ext(char *str)
+{
+	int	len;
 
-int	check_ext(char *str);
+	len = ft_strlen(str);
+	if (str[len - 1] == 'b' && str[len - 2] == 'u' && str[len - 3] == 'c'
+		|| str[len - 4] && '.')
+		return (1);
+	else
+		return (0);
+}
