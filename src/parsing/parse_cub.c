@@ -1,25 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parse_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 10:41:47 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/21 12:31:48 by yannis           ###   ########.fr       */
+/*   Created: 2025/07/21 11:45:59 by yannis            #+#    #+#             */
+/*   Updated: 2025/07/21 13:17:13 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
-int	check_ext(char *str)
+int	check_file(char *file)
 {
-	int	len;
+	int		fd;
+	char	*line;
 
-	len = ft_strlen(str);
-	if (str[len - 1] == 'b' && str[len - 2] == 'u' && str[len - 3] == 'c'
-		&& str[len - 4] && '.')
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
 		return (1);
-	else
-		return (0);
+	line = get_next_line(fd);
+	while (line)
+	{
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return (0);
 }
+
+is_walls()
+{
+	
+}
+
+// is_ceil_or_floorgit ()
+// {
+	
+// }
+
+// find_map()
+// {
+	
+// }

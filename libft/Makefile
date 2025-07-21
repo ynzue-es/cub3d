@@ -19,17 +19,18 @@ FILES = ft_strlen \
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addprefix $(OBJDIR)/, $(FILES:=.o))
 
+all: $(NAME)
+
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(AR) $@ $^
 
-all: $(NAME)
-
 clean:
 	$(RM) -r $(OBJDIR)
+	$(RM) $(NAME)
 
 fclean: clean
 	$(RM) $(NAME)
