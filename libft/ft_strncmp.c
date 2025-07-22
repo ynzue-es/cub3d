@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 10:41:47 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/21 12:31:48 by yannis           ###   ########.fr       */
+/*   Created: 2025/05/05 10:09:24 by ynzue-es          #+#    #+#             */
+/*   Updated: 2025/07/21 13:49:28 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
-int	check_ext(char *str)
+int	ft_strncmp(char *s1, char *s2, int n)
 {
-	int	len;
-
-	len = ft_strlen(str);
-	if (str[len - 1] == 'b' && str[len - 2] == 'u' && str[len - 3] == 'c'
-		&& str[len - 4] && '.')
-		return (1);
-	else
+	if (n == 0)
 		return (0);
+	n = n - 1;
+	while ((*s1 || *s2) && n--)
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
 }

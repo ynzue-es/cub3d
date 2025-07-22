@@ -14,22 +14,25 @@ FILES = ft_strlen \
 		ft_strjoin \
 		ft_split \
 		ft_putendl_fd \
+		ft_strncmp \
+		free_split \
 		get_next_line/get_next_line \
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addprefix $(OBJDIR)/, $(FILES:=.o))
 
+all: $(NAME)
+
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(AR) $@ $^
 
-all: $(NAME)
-
 clean:
 	$(RM) -r $(OBJDIR)
+	$(RM) $(NAME)
 
 fclean: clean
 	$(RM) $(NAME)

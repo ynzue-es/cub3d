@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 10:41:47 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/21 12:31:48 by yannis           ###   ########.fr       */
+/*   Created: 2025/07/21 14:41:38 by yannis            #+#    #+#             */
+/*   Updated: 2025/07/21 15:25:04 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+# include "libft.h"
 
-int	check_ext(char *str)
+int free_split(char **spl)
 {
-	int	len;
+    int i;
 
-	len = ft_strlen(str);
-	if (str[len - 1] == 'b' && str[len - 2] == 'u' && str[len - 3] == 'c'
-		&& str[len - 4] && '.')
-		return (1);
-	else
-		return (0);
+    i = 0;
+    while (spl[i])
+    {
+        free(spl[i]);
+    }
+    free(spl);
+    return (0);
 }

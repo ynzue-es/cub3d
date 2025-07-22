@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 09:40:06 by ynzue-es          #+#    #+#             */
-/*   Updated: 2025/07/21 09:58:37 by yannis           ###   ########.fr       */
+/*   Updated: 2025/07/21 11:26:49 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	ft_putendl_fd(char *s, int fd)
 {
 	while (*s)
-		write(fd, s++, fd);
-	write(fd, "\n", fd);
+		write(fd, s++, 1);
+	write(fd, "\n", 1);
 }
