@@ -6,12 +6,18 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 09:58:17 by engiusep          #+#    #+#             */
-/*   Updated: 2025/07/24 15:03:33 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:24:28 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
+int check_char(char c)
+{
+	if(c != '1' && c != '0' && c != 'S' && c != 'W' && c != 'N' && c != 'E' && c != ' ')
+		return (-1);
+	return (0);
+}
 void clean_map(t_data_game *data_game)
 {
 	int i;
@@ -33,10 +39,16 @@ int check_map(t_data_game *data_game)
 	map = data_game->map_data.map;
 	while(map[i])
 	{
-		
+		j = 0;
 		if(map[i][0] == '\n')
 		{
 			return (-1);
+		}
+		while(map[i][j])
+		{
+			if(check_char(map[i][j]) == -1)
+				return(-1);
+			j++;
 		}
 		i++;
 	}
@@ -82,8 +94,6 @@ int	init_map(char *file, t_data_game *data_game)
 			count++;
 			line = str_trim_nl(line);
 		}
-		// else if(line[0] == '\n' && count < data_game->map_data.height)
-		// 	line[0] = '\0';
 		if (count > 6)
 		{
 			if (!line)
