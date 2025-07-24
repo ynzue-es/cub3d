@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:33:32 by engiusep          #+#    #+#             */
-/*   Updated: 2025/07/24 09:38:49 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:29:59 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ int	check_flag(t_flag *flag)
 		return (-1);
 	if(flag->east_flag != 1)
 		return (-1);
-	return (0);
+	return (1);
 }

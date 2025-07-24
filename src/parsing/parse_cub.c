@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 11:45:59 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/24 11:16:25 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:50:14 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,10 @@ int	check_file(char *file, t_data_game *data_game,t_flag *flag)
 		return (-1);
 	while (line)
 	{
-		if(line[0] != '\n')
-		{
+		if(check_flag(flag) == 1)
 			data_game->map_data.height++;
+		if(line[0] != '\n')
 			line = str_trim_nl(line);
-		}
 		if(is_walls(line, data_game,flag) == -1)
 		{
 			free(line);

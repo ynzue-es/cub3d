@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/24 10:18:10 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:10:59 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_data_game
 {
 	t_wall			all_wall[4];
 	int				count_walls;
+	int				len_fd;
 	t_ceil_floor	ceil_floor;
 	t_map_data		map_data;
 
@@ -57,7 +58,7 @@ typedef struct s_data_game
 /*
  * utils
  */
-
+int	ft_strlen_fd(char *file, t_data_game *data_game);
 int					check_ext(char *str);
 
 /*
