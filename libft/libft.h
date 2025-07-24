@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:37:37 by ynzue-es          #+#    #+#             */
-/*   Updated: 2025/07/21 14:42:45 by yannis           ###   ########.fr       */
+/*   Updated: 2025/07/23 14:24:38 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,8 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*get_next_line(int fd);
 int					ft_strncmp(char *s1, char *s2, int n);
 int					free_split(char **spl);
+int 				ft_isdigit(int digit);
+char				*str_trim_nl(char *line);
+char				*ft_strndup(char *str, int size);
 
 #endif

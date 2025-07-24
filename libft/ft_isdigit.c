@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 10:41:47 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/21 12:31:48 by yannis           ###   ########.fr       */
+/*   Created: 2025/07/23 12:53:44 by engiusep          #+#    #+#             */
+/*   Updated: 2025/07/23 13:50:30 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
+#include <stdio.h>
 
-int	check_ext(char *str)
+int	ft_isdigit(int digit)
 {
-	int	len;
-
-	len = ft_strlen(str);
-	if (str[len - 1] == 'b' && str[len - 2] == 'u' && str[len - 3] == 'c'
-		&& str[len - 4] == '.')
+	if (digit >= '0' && digit <= '9')
 		return (1);
-	else
-		return (0);
+	return (0);
 }

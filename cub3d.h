@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/21 15:25:33 by yannis           ###   ########.fr       */
+/*   Updated: 2025/07/24 10:18:10 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,19 @@ typedef struct s_map_data
 {
 	int				width;
 	int				height;
+	char 			**map;
 }					t_map_data;
+
+typedef struct s_flag
+{
+	int	ceil_flag;
+	int floor_flag;
+	int	north_flag;
+	int west_flag;
+	int	south_flag;
+	int east_flag;
+	
+}	t_flag;
 
 typedef struct s_data_game
 {
@@ -51,11 +63,18 @@ int					check_ext(char *str);
 /*
  * parsing
  */
-
-int					check_file(char *file, t_data_game *data_game);
-
+int	check_flag(t_flag *flag);
+int					check_file(char *file, t_data_game *data_game,t_flag *flag);
+char *clean_str(char *str);
+int add_tab_floor(char *color,t_data_game *data_game);
+int add_tab_ceil(char *color,t_data_game *data_game);
+int check_convert(int convert);
+int check_split(char **split);
+int check_digit(char *str);
+int init_map(char *file, t_data_game *data_game);
 /*
  * init
  */
 
 int					init_data_game(t_data_game *data_game);
+int					init_flag(t_flag *flag);

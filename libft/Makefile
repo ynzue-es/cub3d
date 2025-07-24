@@ -17,6 +17,9 @@ FILES = ft_strlen \
 		ft_strncmp \
 		free_split \
 		get_next_line/get_next_line \
+		ft_isdigit \
+		ft_strndup \
+		ft_str_trim_nl \
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addprefix $(OBJDIR)/, $(FILES:=.o))

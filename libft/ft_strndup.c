@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strncdup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 10:41:47 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/21 12:31:48 by yannis           ###   ########.fr       */
+/*   Created: 2025/07/23 14:17:56 by engiusep          #+#    #+#             */
+/*   Updated: 2025/07/23 14:18:06 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
-int	check_ext(char *str)
+char	*ft_strndup(char *str, int size)
 {
-	int	len;
+	int		i;
+	char	*new;
 
-	len = ft_strlen(str);
-	if (str[len - 1] == 'b' && str[len - 2] == 'u' && str[len - 3] == 'c'
-		&& str[len - 4] == '.')
-		return (1);
-	else
-		return (0);
+	i = 0;
+	new = malloc(size * sizeof(char) + 1);
+	if (!new)
+		return (NULL);
+	while (i < size)
+	{
+		new[i] = str[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
 }

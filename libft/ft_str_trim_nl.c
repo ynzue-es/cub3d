@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_str_trim_nl.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 10:41:47 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/21 12:31:48 by yannis           ###   ########.fr       */
+/*   Created: 2025/07/23 14:24:08 by engiusep          #+#    #+#             */
+/*   Updated: 2025/07/23 14:34:34 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
-int	check_ext(char *str)
+char	*str_trim_nl(char *line)
 {
-	int	len;
+	size_t	len;
 
-	len = ft_strlen(str);
-	if (str[len - 1] == 'b' && str[len - 2] == 'u' && str[len - 3] == 'c'
-		&& str[len - 4] == '.')
-		return (1);
-	else
-		return (0);
+	len = ft_strlen(line);
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
+	return (line);
 }

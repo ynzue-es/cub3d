@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yannis <yannis@student.42.fr>              +#+  +:+       +#+         #
+#    By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:04:02 by yannis            #+#    #+#              #
-#    Updated: 2025/07/21 15:28:36 by yannis           ###   ########.fr        #
+#    Updated: 2025/07/24 10:18:43 by engiusep         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SRCS = 	main.c \
 		init.c \
 		utils.c \
 		parsing/parse_cub.c \
+		parsing/parse_utils.c \
+		parsing/parse_map.c \
 
 SRCFILES = $(addprefix $(SRCDIR)/, $(SRCS))
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
@@ -35,6 +37,9 @@ LIBFT_FILES = ft_strlen.c \
 			ft_putendl_fd.c \
 			ft_strncmp.c \
 			free_split.c \
+			ft_isdigit.c \
+			ft_strndup.c \
+			ft_str_trim_nl.c \
 			get_next_line/get_next_line.c \
 			  
 LIBFT_SRCS = $(addprefix libft/, $(LIBFT_FILES))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:19:50 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/21 15:25:53 by yannis           ###   ########.fr       */
+/*   Updated: 2025/07/24 11:13:46 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,16 @@ int	init_data_game(t_data_game *data_game)
 	}
 	data_game->map_data.height = 0;
 	data_game->map_data.width = 0;
+	return (0);
+}
+
+int init_flag(t_flag *flag)
+{
+	flag->ceil_flag = 0;
+	flag->floor_flag = 0;
+	flag->east_flag = 0;
+	flag->south_flag = 0;
+	flag->north_flag = 0;
+	flag->west_flag = 0;
 	return (0);
 }
