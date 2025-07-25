@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:33:32 by engiusep          #+#    #+#             */
-/*   Updated: 2025/07/24 13:29:59 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/07/25 08:41:11 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 
 int check_split(char **split)
 {
-	int i;
 	int j;
 	int count;
 	
 	count = 0;
-	i = 0;
 	j = 0;
 	while(split[count])
 		count++;
@@ -29,13 +27,10 @@ int check_split(char **split)
 	while(split[j])
 	{
 		if(check_digit(split[j]) == -1)
-		{
 			return (-1);
-		}
 		j++;
 	}
 	return (0);
-		
 }
 
 int check_convert(int convert)
@@ -47,50 +42,32 @@ int check_convert(int convert)
 	return (0);
 }
 
-int add_tab_floor(char *color,t_data_game *data_game)
+int add_tab_ceil_floor(char *color, int *ceil_floor)
 {
 	char **new_split;
 	int convert;
 	
 	new_split = ft_split(color,',');
-	if(check_split(new_split) == -1)
+	if (!new_split)
 		return (-1);
+	if(check_split(new_split) == -1)
+		return (free_split(new_split), -1);
 	convert = ft_atoi(new_split[0]);
 	if(check_convert(convert) == -1)
-		return (-1);
-	data_game->ceil_floor.floor[0] = convert;
+		return (free_split(new_split), -1);
+	ceil_floor[0] = convert;
 	convert = ft_atoi(new_split[1]);
 	if(check_convert(convert) == -1)
-		return (-1);
-	data_game->ceil_floor.floor[1] = convert; 
+		return (free_split(new_split), -1);
+	ceil_floor[1] = convert; 
 	convert = ft_atoi(new_split[2]);
 	if(check_convert(convert) == -1)
-		return (-1);
-	data_game->ceil_floor.floor[2] = convert;
+		return (free_split(new_split), -1);
+	ceil_floor[2] = convert;
+	free_split(new_split);
 	return (0);
 }
-int add_tab_ceil(char *color,t_data_game *data_game)
-{
-	char **new_split;
-	int convert;
-	
-	new_split = ft_split(color,',');
-	if(check_split(new_split) == -1)
-		return (-1);
-	convert = ft_atoi(new_split[0]);
-	if(check_convert(convert) == -1)
-		return (-1);
-	data_game->ceil_floor.ceil[0] = convert;
-	convert = ft_atoi(new_split[1]);
-	if(check_convert(convert) == -1)
-		return (-1);
-	data_game->ceil_floor.ceil[1] = convert; 
-	convert = ft_atoi(new_split[2]);
-	if(check_convert(convert) == -1)
-		return (-1);
-	data_game->ceil_floor.ceil[2] = convert;
-	return (0);
-}
+
 int	check_flag(t_flag *flag)
 {
 	if(flag->ceil_flag != 1)

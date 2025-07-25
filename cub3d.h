@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/24 14:10:59 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/07/25 08:22:12 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,26 @@ typedef struct s_map_data
 {
 	int				width;
 	int				height;
-	char 			**map;
+	char			**map;
 }					t_map_data;
 
 typedef struct s_flag
 {
-	int	ceil_flag;
-	int floor_flag;
-	int	north_flag;
-	int west_flag;
-	int	south_flag;
-	int east_flag;
-	
-}	t_flag;
+	int				ceil_flag;
+	int				floor_flag;
+	int				north_flag;
+	int				west_flag;
+	int				south_flag;
+	int				east_flag;
+
+}					t_flag;
 
 typedef struct s_data_game
 {
 	t_wall			all_wall[4];
 	int				count_walls;
-	int				len_fd;
 	t_ceil_floor	ceil_floor;
+	t_flag			flag;
 	t_map_data		map_data;
 
 }					t_data_game;
@@ -58,21 +58,19 @@ typedef struct s_data_game
 /*
  * utils
  */
-int	ft_strlen_fd(char *file, t_data_game *data_game);
 int					check_ext(char *str);
 
 /*
  * parsing
  */
-int	check_flag(t_flag *flag);
-int					check_file(char *file, t_data_game *data_game,t_flag *flag);
-char *clean_str(char *str);
-int add_tab_floor(char *color,t_data_game *data_game);
-int add_tab_ceil(char *color,t_data_game *data_game);
-int check_convert(int convert);
-int check_split(char **split);
-int check_digit(char *str);
-int init_map(char *file, t_data_game *data_game);
+int					check_flag(t_flag *flag);
+int					check_file(char *file, t_data_game *data_game,
+						t_flag *flag);
+int					add_tab_ceil_floor(char *color, int *ceil_floor);
+int					check_convert(int convert);
+int					check_split(char **split);
+int					check_digit(char *str);
+int					init_map(char *file, t_data_game *data_game);
 /*
  * init
  */

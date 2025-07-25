@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:41:38 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/21 15:25:04 by yannis           ###   ########.fr       */
+/*   Updated: 2025/07/25 09:13:56 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int free_split(char **spl)
 
     i = 0;
     while (spl[i])
-    {
-        free(spl[i]);
-    }
+        free(spl[i++]);
     free(spl);
     return (0);
 }

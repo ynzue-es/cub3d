@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 11:45:59 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/24 14:50:14 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/07/25 09:41:49 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,19 @@ static int add_color(char *floor_or_ceil,char *color,t_data_game *data_game, t_f
 {
 	if(ft_strncmp(floor_or_ceil,"F", 1) == 0 && ft_strlen(floor_or_ceil) == 1)
 	{
-		if(add_tab_floor(color,data_game) == -1)
+		if(add_tab_ceil_floor(color, data_game->ceil_floor.floor) == -1)
 			return (-1);
 		flag->floor_flag++;
 	}
 	else if(ft_strncmp(floor_or_ceil, "C", 1) == 0 && ft_strlen(floor_or_ceil) == 1)
 	{
-		if(add_tab_ceil(color,data_game) == -1)
+		if(add_tab_ceil_floor(color,data_game->ceil_floor.ceil) == -1)
 			return (-1);
 		flag->ceil_flag++;
 	}
 	return (0);
 }
-static int	is_walls(char *line, t_data_game *data_game, t_flag *flag)
+static int	walls_ceil_floor(char *line, t_data_game *data_game, t_flag *flag)
 {
 	char	**spl;
 
@@ -88,9 +88,10 @@ static int	is_walls(char *line, t_data_game *data_game, t_flag *flag)
 	if (!spl)
 		return (-1);
 	if(add_wall(spl[0], spl[1], data_game, flag) == -1)
-	return (-1);
+	return (free_split(spl), -1);
 	if(add_color(spl[0],spl[1],data_game, flag) == -1)
-		return (-1);
+		return (free_split(spl), -1);
+	free_split(spl);
 	return (0);
 }
 
@@ -107,16 +108,21 @@ int	check_file(char *file, t_data_game *data_game,t_flag *flag)
 		return (-1);
 	while (line)
 	{
+		if (data_game->map_data.height == 0 && check_flag(flag) == 1 && line[0] == '\n')
+		{
+			free(line);
+			line = get_next_line(fd);
+			continue;
+		}
 		if(check_flag(flag) == 1)
 			data_game->map_data.height++;
 		if(line[0] != '\n')
 			line = str_trim_nl(line);
-		if(is_walls(line, data_game,flag) == -1)
+		if(walls_ceil_floor(line, data_game,flag) == -1)
 		{
 			free(line);
 			return (-1);
 		}
-		
 		free(line);
 		line = get_next_line(fd);
 	}

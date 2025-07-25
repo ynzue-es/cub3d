@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 09:58:17 by engiusep          #+#    #+#             */
-/*   Updated: 2025/07/24 15:24:28 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/07/25 09:45:19 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ void clean_map(t_data_game *data_game)
 {
 	int i;
 	
-	i = data_game->map_data.height - 2;
+	i = data_game->map_data.height - 1;
 	while(data_game->map_data.map[i][0] == '\n')
+	{
+		free(data_game->map_data.map[i]);
 		i--;
+	}
 	data_game->map_data.map[i + 1] = NULL;
 }
 int check_map(t_data_game *data_game)
@@ -41,9 +44,7 @@ int check_map(t_data_game *data_game)
 	{
 		j = 0;
 		if(map[i][0] == '\n')
-		{
 			return (-1);
-		}
 		while(map[i][j])
 		{
 			if(check_char(map[i][j]) == -1)
@@ -58,13 +59,15 @@ int	malloc_map(t_data_game *data_game)
 {
 	int	j;
 	
-	data_game->map_data.map = malloc(sizeof(char *) * data_game->map_data.height);
+	data_game->map_data.map = malloc(sizeof(char *) * (data_game->map_data.height + 1));
 	if (!data_game->map_data.map)
 		return (-1);
 	j = 0;
 	while (j < data_game->map_data.height)
 	{
 		data_game->map_data.map[j] = malloc(1);
+		if (!data_game->map_data.map[j])
+			return(free_split(data_game->map_data.map), -1);
 		data_game->map_data.map[j][0] = 0;
 		j++;
 	}
@@ -78,7 +81,8 @@ int	init_map(char *file, t_data_game *data_game)
 	int i;
 	char *temp;
 
-	malloc_map(data_game);
+	if (malloc_map(data_game) == -1)
+		return(-1);
 	i = 0;
 	count = 0;
 	fd = open(file, O_RDONLY);
@@ -103,9 +107,7 @@ int	init_map(char *file, t_data_game *data_game)
 			if (!data_game->map_data.map[i])
 			{
 				free_split(data_game->map_data.map);
-				free(line);
-				free(temp);
-				return (-1);
+				return (free(line), free(temp), -1);
 			}
 			free(temp);
 			i++;
@@ -116,8 +118,6 @@ int	init_map(char *file, t_data_game *data_game)
 	data_game->map_data.map[i] = NULL;
 	close(fd);
 	if(check_map(data_game) == -1)
-	{
 		return (-1);
-	}
 	return (0);
 }
