@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/25 09:47:05 by yannis           ###   ########.fr       */
+/*   Updated: 2025/07/25 23:13:21 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,6 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("Error",2);
 		return (1);
 	}
-
-	int i = 0;
-	while (data_game->map_data.map[i])
-	{
-		printf("line : %s\n", data_game->map_data.map[i]);
-		i++;
-	}
-	
-
 	free_split(data_game->map_data.map);
 	free(data_game);
 }
