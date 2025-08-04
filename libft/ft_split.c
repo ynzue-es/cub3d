@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:25:19 by ynzue-es          #+#    #+#             */
-/*   Updated: 2025/07/23 14:04:14 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/04 10:49:36 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	ft_count_word(char const *s, char sep)
 	count = 0;
 	while (s[i])
 	{
-		if ((s[i] != sep && s[i + 1] == sep)
-			|| (s[i] != sep && s[i + 1] == '\0'))
+		if (((s[i] != sep && s[i] != '\t') && (s[i + 1] == sep || s[i + 1] == '\t'))
+			|| ((s[i] != sep && s[i] != '\t') && s[i + 1] == '\0'))
 			count++;
 		i++;
 	}
@@ -34,7 +34,7 @@ int	ft_len_words(char const *s, char sep)
 	int	i;
 
 	i = 0;
-	while (s[i] != sep && s[i] != '\0')
+	while (s[i] != sep && s[i] != '\t' && s[i] != '\0')
 		i++;
 	return (i);
 }
@@ -48,7 +48,7 @@ char	*allocate_copy(char const *str, char sep)
 	copy_word = malloc(ft_len_words(str, sep) + 1);
 	if (!copy_word)
 		return (NULL);
-	while (str[i] != sep && str[i] != '\0')
+	while (str[i] != sep && str[i] != '\t' && str[i] != '\0')
 	{
 		copy_word[i] = str[i];
 		i++;
@@ -80,7 +80,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	while (i < nb_words)
 	{
-		while (*s == c)
+		while (*s == c || *s == '\t')
 			s++;
 		split[i] = allocate_copy(s, c);
 		if (!split[i])
@@ -88,7 +88,7 @@ char	**ft_split(char const *s, char c)
 			ft_free_all(split, i);
 			return (NULL);
 		}
-		while (*s != c && *s != '\0')
+		while (*s != c && *s != '\t' && *s != '\0')
 			s++;
 		i++;
 	}

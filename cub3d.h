@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/25 08:22:12 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/04 12:57:06 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int					check_ext(char *str);
 int					check_flag(t_flag *flag);
 int					check_file(char *file, t_data_game *data_game,
 						t_flag *flag);
-int					add_tab_ceil_floor(char *color, int *ceil_floor);
+int					add_tab_ceil_floor(char *line, int *ceil_floor);
 int					check_convert(int convert);
 int					check_split(char **split);
 int					check_digit(char *str);

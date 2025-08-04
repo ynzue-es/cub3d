@@ -6,7 +6,7 @@
 #    By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:04:02 by yannis            #+#    #+#              #
-#    Updated: 2025/07/24 10:18:43 by engiusep         ###   ########.fr        #
+#    Updated: 2025/08/04 10:20:26 by engiusep         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ LIBFT_FILES = ft_strlen.c \
 			ft_strndup.c \
 			ft_str_trim_nl.c \
 			get_next_line/get_next_line.c \
+			line_digit.c \
 			  
 LIBFT_SRCS = $(addprefix libft/, $(LIBFT_FILES))
 

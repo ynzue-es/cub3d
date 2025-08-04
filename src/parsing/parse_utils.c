@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:33:32 by engiusep          #+#    #+#             */
-/*   Updated: 2025/07/25 08:41:11 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/04 13:12:52 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,51 @@ int check_convert(int convert)
 	return (0);
 }
 
-int add_tab_ceil_floor(char *color, int *ceil_floor)
+char *clear_str(char *line)
+{
+	char *new_str;
+	int i;
+	int j;
+	int count;
+
+	count = 0;
+	new_str = NULL;
+	j = 0;
+	i = 0;
+	
+	while(line[i])
+	{
+		if(line[i] == ' ')
+			i++;
+		count++;
+		i++;
+	}
+	i = 0;
+	new_str = malloc(count + 1);
+	while(line[i])
+	{
+		if(line[i] == ' ')
+		{
+			i++;
+			continue;
+		}
+		new_str[j] = line[i];
+		i++;
+		j++;
+	}
+	new_str[j] = '\0';
+	return (new_str);
+}
+int add_tab_ceil_floor(char *line, int *ceil_floor)
 {
 	char **new_split;
+	char *new_str;
 	int convert;
-	
-	new_split = ft_split(color,',');
+	int i;
+
+	i = 0;
+	new_str = clear_str(line);
+	new_split = ft_split(new_str,',');
 	if (!new_split)
 		return (-1);
 	if(check_split(new_split) == -1)
@@ -65,6 +104,7 @@ int add_tab_ceil_floor(char *color, int *ceil_floor)
 		return (free_split(new_split), -1);
 	ceil_floor[2] = convert;
 	free_split(new_split);
+	free(new_str);
 	return (0);
 }
 
