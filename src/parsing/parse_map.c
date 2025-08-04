@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 09:58:17 by engiusep          #+#    #+#             */
-/*   Updated: 2025/07/25 23:16:39 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/04 15:34:36 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,40 @@ int check_char(char c)
 	if(c != '1' && c != '0' && c != 'S' && c != 'W' && c != 'N' && c != 'E' && c != ' ')
 		return (-1);
 	return (0);
+}
+int check_zero(int i,int j,char **map)
+{
+    int len;
+    
+    len = ft_strlen(map[i]);
+    
+    if(map[i][j] == '0')
+    {
+        if(map[i][len - 1] == '0')
+            return (-1);
+        if(i == 0 && map[i][j] == '0')
+            return (-1);
+    }
+    if(map[i][j] == ' ')
+    {
+        if(j < len - 1 && (map[i][j + 1] != '1' && map[i][j + 1] != ' '))
+        {
+            printf("yo\n");
+            return(-1);
+        }
+        if(j > 0 && map[i][j - 1] && (map[i][j - 1] != '1' && map[i][j - 1] != ' '))
+            return (-1);
+        if((map[i + 1][j] != '1' && map[i + 1][j] != ' '))
+            return (-1);
+        if(i > 0 && (map[i - 1][j] != '1' && map[i - 1][j] != ' '))
+            return (-1);
+    }
+    if(map[i + 1] == NULL)
+    {
+        if(map[i][j] != '1' && map[i][j] != ' ')
+            return (-1);   
+    }
+    return (0);
 }
 void clean_map(t_data_game *data_game)
 {
@@ -42,6 +76,7 @@ int check_map(t_data_game *data_game)
 	map = data_game->map_data.map;
 	while(map[i])
 	{
+        printf("%s\n",map[i]);
 		j = 0;
 		if(map[i][0] == '\n')
 			return (-1);
@@ -49,6 +84,8 @@ int check_map(t_data_game *data_game)
 		{
 			if(check_char(map[i][j]) == -1)
 				return(-1);
+            if(check_zero(i, j,map) == -1)
+                return (-1);
 			j++;
 		}
 		i++;
@@ -84,7 +121,7 @@ int	process_map_line(char *line, t_data_game *data_game, int *i)
     {
         free_split(data_game->map_data.map);
         return (free(line), free(temp), -1);
-    }
+    } 
     free(temp);
     (*i)++;
     return (0);

@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/04 13:15:51 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/04 14:37:49 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ int	main(int argc, char **argv)
 		free(data_game);
 		return (1);
 	}
+	// if(check_map(data_game) == -1)
+	// {
+	// 	ft_putendl_fd("Error",2);
+	// 	free_split(data_game->map_data.map);
+	// 	free(data_game);
+	// 	return (1);
+	// }
 	free_split(data_game->map_data.map);
 	free(data_game);
 }
