@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 11:45:59 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/04 13:13:58 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/05 10:38:17 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ static int	add_wall(char *line, t_data_game *data_game, t_flag *flag)
 	if (ft_strncmp(spl[0], "NO", 2) == 0 && ft_strlen(spl[0]) == 2)
 	{
 		data_game->all_wall[0].direction = spl[0];
+		if (check_ext(spl[1], ".xpm") == -1)
+		{
+			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
+			return (-1);
+		}
 		data_game->all_wall[0].texure_file = spl[1];
 		flag->north_flag++;
 		data_game->count_walls++;
@@ -29,6 +34,11 @@ static int	add_wall(char *line, t_data_game *data_game, t_flag *flag)
 	else if (ft_strncmp(spl[0], "SO", 2) == 0 && ft_strlen(spl[0]) == 2)
 	{
 		data_game->all_wall[1].direction = spl[0];
+		if (check_ext(spl[1], ".xpm") == -1)
+		{
+			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
+			return (-1);
+		}
 		data_game->all_wall[1].texure_file = spl[1];
 		flag->south_flag++;
 		data_game->count_walls++;
@@ -36,6 +46,11 @@ static int	add_wall(char *line, t_data_game *data_game, t_flag *flag)
 	else if (ft_strncmp(spl[0], "WE", 2) == 0 && ft_strlen(spl[0]) == 2)
 	{
 		data_game->all_wall[2].direction = spl[0];
+		if (check_ext(spl[1], ".xpm") == -1)
+		{
+			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
+			return (-1);
+		}
 		data_game->all_wall[2].texure_file = spl[1];
 		flag->west_flag++;
 		data_game->count_walls++;
@@ -43,6 +58,11 @@ static int	add_wall(char *line, t_data_game *data_game, t_flag *flag)
 	else if (ft_strncmp(spl[0], "EA", 2) == 0 && ft_strlen(spl[0]) == 2)
 	{
 		data_game->all_wall[3].direction = spl[0];
+		if (check_ext(spl[1], ".xpm") == -1)
+		{
+			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
+			return (-1);
+		}
 		data_game->all_wall[3].texure_file = spl[1];
 		flag->east_flag++;
 		data_game->count_walls++;
@@ -67,36 +87,34 @@ int	check_digit(char *str)
 	return (0);
 }
 
-static int	add_color(char *line, t_data_game *data_game,
-		t_flag *flag)
+static int	add_color(char *line, t_data_game *data_game, t_flag *flag)
 {
-	char **spl;
-	char lettre;
-	int i;
-	int j;
+	char	**spl;
+	char	letter;
+	int		i;
+	int		j;
 
 	j = 0;
 	i = 0;
-	lettre = 0;
-	
-	while(line[i] == ' ' && line[i] != 'F' && line[i] != 'C')
+	letter = 0;
+	while (line[i] == ' ' && line[i] != 'F' && line[i] != 'C')
 		i++;
-	if(line[i] == 'F' || line[i] == 'C')
+	if (line[i] == 'F' || line[i] == 'C')
 	{
-		if(line[i + 1] != ' ')
+		if (line[i + 1] != ' ')
 			return (-1);
-		lettre = line[i];
+		letter = line[i];
 	}
 	spl = ft_split(line + i + 1, ',');
-	if(!spl)
+	if (!spl)
 		return (-1);
-	if (lettre == 'F')
+	if (letter == 'F')
 	{
 		if (add_tab_ceil_floor(line + i + 1, data_game->ceil_floor.floor) == -1)
 			return (-1);
 		flag->floor_flag++;
 	}
-	else if (lettre == 'C')
+	else if (letter == 'C')
 	{
 		if (add_tab_ceil_floor(line + i + 1, data_game->ceil_floor.ceil) == -1)
 			return (-1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:19:50 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/25 08:05:25 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/05 09:46:12 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int init_flag(t_flag *flag)
 	flag->south_flag = 0;
 	flag->north_flag = 0;
 	flag->west_flag = 0;
+	flag->player_flag = 0;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/04 14:37:49 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/05 10:35:46 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	data_game = malloc(sizeof(t_data_game));
 	if (argc != 2)
 		return (ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
-	if (check_ext(argv[1]) == 0)
+	if (check_ext(argv[1],".cub") == -1)
 		return (ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
 	init_flag(&data_game->flag);
 	init_data_game(data_game);

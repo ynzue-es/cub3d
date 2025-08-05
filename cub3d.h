@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/04 12:57:06 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/05 10:36:00 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_flag
 	int				west_flag;
 	int				south_flag;
 	int				east_flag;
+	int				player_flag;
 
 }					t_flag;
 
@@ -58,7 +59,7 @@ typedef struct s_data_game
 /*
  * utils
  */
-int					check_ext(char *str);
+int					check_ext(char *str,char *extension);
 
 /*
  * parsing
