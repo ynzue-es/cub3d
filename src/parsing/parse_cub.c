@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 11:45:59 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/05 10:38:17 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/05 10:52:26 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	add_wall(char *line, t_data_game *data_game, t_flag *flag)
 		if (check_ext(spl[1], ".xpm") == -1)
 		{
 			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
+			free_split(spl);
 			return (-1);
 		}
 		data_game->all_wall[0].texure_file = spl[1];
@@ -37,6 +38,7 @@ static int	add_wall(char *line, t_data_game *data_game, t_flag *flag)
 		if (check_ext(spl[1], ".xpm") == -1)
 		{
 			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
+			free_split(spl);
 			return (-1);
 		}
 		data_game->all_wall[1].texure_file = spl[1];
@@ -49,6 +51,7 @@ static int	add_wall(char *line, t_data_game *data_game, t_flag *flag)
 		if (check_ext(spl[1], ".xpm") == -1)
 		{
 			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
+			free_split(spl);
 			return (-1);
 		}
 		data_game->all_wall[2].texure_file = spl[1];
@@ -61,6 +64,7 @@ static int	add_wall(char *line, t_data_game *data_game, t_flag *flag)
 		if (check_ext(spl[1], ".xpm") == -1)
 		{
 			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
+			free_split(spl);
 			return (-1);
 		}
 		data_game->all_wall[3].texure_file = spl[1];
@@ -175,13 +179,3 @@ int	check_file(char *file, t_data_game *data_game, t_flag *flag)
 		return (-1);
 	return (0);
 }
-
-// is_ceil_or_floorgit ()
-// {
-
-// }
-
-// find_map()
-// {
-
-// }

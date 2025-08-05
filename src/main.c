@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/05 10:35:46 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/05 10:49:59 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,27 @@
 
 int	main(int argc, char **argv)
 {
-	t_data_game *data_game;
+	t_data_game	*data_game;
 
 	data_game = malloc(sizeof(t_data_game));
 	if (argc != 2)
-		return (ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
-	if (check_ext(argv[1],".cub") == -1)
-		return (ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
+		return (free(data_game), ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
+	if (check_ext(argv[1], ".cub") == -1)
+		return (free(data_game), ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
 	init_flag(&data_game->flag);
 	init_data_game(data_game);
-	if(check_file(argv[1], data_game,&data_game->flag) == -1)
+	if (check_file(argv[1], data_game, &data_game->flag) == -1)
 	{
-		ft_putendl_fd("Error",2);
+		ft_putendl_fd("Error", 2);
 		free(data_game);
 		return (1);
 	}
-	if(init_map(argv[1], data_game) == -1)
+	if (init_map(argv[1], data_game) == -1)
 	{
-		ft_putendl_fd("Error",2);
+		ft_putendl_fd("Error", 2);
 		free(data_game);
 		return (1);
 	}
-	// if(check_map(data_game) == -1)
-	// {
-	// 	ft_putendl_fd("Error",2);
-	// 	free_split(data_game->map_data.map);
-	// 	free(data_game);
-	// 	return (1);
-	// }
 	free_split(data_game->map_data.map);
 	free(data_game);
 }
