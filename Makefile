@@ -6,7 +6,7 @@
 #    By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:04:02 by yannis            #+#    #+#              #
-#    Updated: 2025/08/04 10:20:26 by engiusep         ###   ########.fr        #
+#    Updated: 2025/08/05 12:26:23 by engiusep         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS = 	main.c \
 		parsing/parse_cub.c \
 		parsing/parse_utils.c \
 		parsing/parse_map.c \
+		raycasting/segment.c
 
 SRCFILES = $(addprefix $(SRCDIR)/, $(SRCS))
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
