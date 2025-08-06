@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/06 14:50:00 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:52:28 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int	put_segment(t_window *data_mlx, t_data_game *data_map)
 				{
 					data_map->player_pos.player_pos_x = j;
 					data_map->player_pos.player_pos_y = i;
+					data_map->player_pos.player_angle = -M_PI / 2;
 					data_map->flag.fisrt_pos_flag = 1;
 				}
 			}
