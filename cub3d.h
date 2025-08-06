@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/06 11:04:46 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:43:40 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_flag
 	int				south_flag;
 	int				east_flag;
 	int				player_flag;
+	int				fisrt_pos_flag;
+	
 
 }
 					t_flag;
@@ -58,6 +60,12 @@ typedef struct s_point
 	int y;
 }t_point;
 
+typedef struct s_player_pos
+{
+	float player_pos_x;
+	float player_pos_y;
+	float player_angle;
+}t_player_pos;
 typedef struct s_segment
 {
 	t_point p1;
@@ -72,13 +80,15 @@ typedef struct s_data_game
 	t_ceil_floor	ceil_floor;
 	t_flag			flag;
 	t_map_data		map_data;
-
+	t_player_pos	player_pos;
+	t_window		*data_mlx;
 }					t_data_game;
 
 /*
  * utils
  */
 int					check_ext(char *str,char *extension);
+int 			key_code(int key,t_data_game *data);
 
 /*
  * parsing

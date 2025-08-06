@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/06 11:16:59 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:23:45 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 int	main(int argc, char **argv)
 {
 	t_data_game	*data_game;
-	t_window data_mlx;
+	t_window *data_mlx;
 	
 	
 	data_game = malloc(sizeof(t_data_game));
+	data_mlx = malloc(sizeof(t_window));
 	if (argc != 2)
 		return (free(data_game), ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
 	if (check_ext(argv[1], ".cub") == -1)
@@ -37,14 +38,16 @@ int	main(int argc, char **argv)
 		free(data_game);
 		return (1);
 	}
-	data_mlx.mlx_ptr = mlx_init();
-	if (!data_mlx.mlx_ptr)
+	data_mlx->mlx_ptr = mlx_init();
+	if (!data_mlx->mlx_ptr)
     	return (1);
-	data_mlx.window_ptr = mlx_new_window(data_mlx.mlx_ptr, 2000, 1090, "cub3d");
-	if (!data_mlx.window_ptr)
+	data_mlx->window_ptr = mlx_new_window(data_mlx->mlx_ptr, 2000, 1090, "cub3d");
+	if (!data_mlx->window_ptr)
     	return (1);
-	put_segment(&data_mlx,data_game);
-	mlx_loop(data_mlx.mlx_ptr);
+	data_game->data_mlx = data_mlx;
+	mlx_key_hook(data_mlx->window_ptr,key_code,data_game);
+	put_segment(data_mlx,data_game);
+	mlx_loop(data_mlx->mlx_ptr);
 	free_split(data_game->map_data.map);
 	free(data_game);
 }
