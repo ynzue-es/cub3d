@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/06 14:52:28 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:08:00 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,20 @@
 
 int	key_code(int key, t_data_game *data)
 {
+	float new_x;
+	float new_y;
+	
 	if (key == 119)
 	{
-		data->player_pos.player_pos_x = data->player_pos.player_pos_x
-			+ cos(data->player_pos.player_angle) * 0.5;
-		data->player_pos.player_pos_y = data->player_pos.player_pos_y
-			+ sin(data->player_pos.player_angle) *  0.5;
-		printf("mlx_ptr: %p, window_ptr: %p\n", data->data_mlx->mlx_ptr,
-			data->data_mlx->window_ptr);
+		new_x = data->player_pos.player_pos_x + cos(data->player_pos.player_angle) * 0.5;
+		new_y = data->player_pos.player_pos_y + sin(data->player_pos.player_angle) * 0.5;
+		if(data->map_data.map[(int)new_y][(int)new_x] != '1')
+		{
+			data->player_pos.player_pos_x = new_x;
+            data->player_pos.player_pos_y = new_y;
+		}
+			
+			
 	}
 	if (key == 100)
 		data->player_pos.player_angle += 0.1;
@@ -119,18 +125,7 @@ int	put_segment(t_window *data_mlx, t_data_game *data_map)
 			}
 			if (data_map->map_data.map[i][j] == 'N')
 			{
-				y = 0;
-				while (y < 32)
-				{
-					x = 0;
-					while (x < 32)
-					{
-						mlx_pixel_put(data_mlx->mlx_ptr, data_mlx->window_ptr, j
-							* 32 + x, i * 32 + y, 0x000066);
-						x++;
-					}
-					y++;
-				}
+				
 				if(data_map->flag.fisrt_pos_flag == 0)
 				{
 					data_map->player_pos.player_pos_x = j;
@@ -143,6 +138,21 @@ int	put_segment(t_window *data_mlx, t_data_game *data_map)
 		}
 		i++;
 	}
+	
+	y = 0;
+    while (y < 32)
+    {
+        x = 0;
+        while (x < 32)
+        {
+            mlx_pixel_put(data_mlx->mlx_ptr, data_mlx->window_ptr, 
+                (int)(data_map->player_pos.player_pos_x * 32) + x, 
+                (int)(data_map->player_pos.player_pos_y * 32) + y, 
+                0x000066);
+            x++;
+        }
+        y++;
+    }
 
 	float fov = M_PI / 3;
 	int num_rays = 200;
