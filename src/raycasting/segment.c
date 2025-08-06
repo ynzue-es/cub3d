@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/06 15:08:00 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:50:58 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,21 @@ int	key_code(int key, t_data_game *data)
 			data->player_pos.player_pos_x = new_x;
             data->player_pos.player_pos_y = new_y;
 		}
-			
-			
 	}
-	if (key == 100)
+	else if(key == 115)
+	{
+		new_x = data->player_pos.player_pos_x + cos(data->player_pos.player_angle) * -0.5;
+		new_y = data->player_pos.player_pos_y + sin(data->player_pos.player_angle) * -0.5;
+		if(data->map_data.map[(int)new_y][(int)new_x] != '1')
+		{
+			data->player_pos.player_pos_x = new_x;
+            data->player_pos.player_pos_y = new_y;
+		}
+	}
+	else if (key == 100)
 		data->player_pos.player_angle += 0.1;
-	if (key == 97)
+	else if (key == 97)
 		data->player_pos.player_angle -= 0.1;
-	mlx_clear_window(data->data_mlx->mlx_ptr, data->data_mlx->window_ptr);
 	put_segment(data->data_mlx, data);
 	printf("key code = %d\n", key);
 	return (0);
@@ -50,8 +57,8 @@ void	ray_cast(t_data_game *data, t_window *data_mlx, float ray_angle)
 
 	ray_x = data->player_pos.player_pos_x * 32 + 16;
 	ray_y = data->player_pos.player_pos_y * 32 + 16;
-	ray_dir_x = cos(ray_angle);
-	ray_dir_y = sin(ray_angle);
+	ray_dir_x =  cos(ray_angle);
+	ray_dir_y =  sin(ray_angle);
 	i = 0;
 	while (1)
 	{
@@ -161,7 +168,8 @@ int	put_segment(t_window *data_mlx, t_data_game *data_map)
 
 	while (i < num_rays)
 	{
-		ray_angle = 3 * M_PI / 2 - fov / 2 + (fov * i / num_rays);
+		ray_angle = data_map->player_pos.player_angle - fov/2 + (fov * i / num_rays);
+		//ray_angle = 3 * M_PI / 2 - fov / 2 + (fov * i / num_rays);
 		ray_cast(data_map, data_mlx, ray_angle);
 		i++;
 	}
