@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/08 13:23:12 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/08 13:47:30 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,16 @@ void	ray_cast(t_data_game *data, t_window *data_mlx, float ray_angle,t_data_pixe
 	int		i;
 
 	(void)data_mlx;
-	ray_x = data->player_pos.player_pos_x * 32 + 16;
-	ray_y = data->player_pos.player_pos_y * 32 + 16;
+	ray_x = data->player_pos.player_pos_x * 16 + 8;
+	ray_y = data->player_pos.player_pos_y * 16 + 8;
 	ray_dir_x =  cos(ray_angle);
 	ray_dir_y =  sin(ray_angle);
 	i = 0;
 	(void)data_pixel;
 	while (1)
 	{
-		map_x = (int)(ray_x / 32);
-		map_y = (int)(ray_y / 32);
+		map_x = (int)(ray_x / 16);
+		map_y = (int)(ray_y / 16);
 		if (data->map_data.map[map_y][map_x] == '1')
 			break ;
 		my_mlx_pixel_put(data_pixel,(int)ray_x,(int)ray_y,0xFF0000);
@@ -123,15 +123,13 @@ int	put_segment(t_window *data_mlx, t_data_game *data_game,t_data_pixel *data_pi
 			y = 0;
 			if (data_game->map_data.map[i][j] == '1')
 			{
-				while (y < 32)
+				while (y < 16)
 				{
 					x = 0;
-					while (x < 32)
+					while (x < 16)
 					{
 						
-						my_mlx_pixel_put(data_pixel,j * 32 + x,i *32 + y,0xFFFFFF);
-						// mlx_pixel_put(data_mlx->mlx_ptr, data_mlx->window_ptr, j
-						// 	* 32 + x, i * 32 + y, 0xFFFFFF);
+						my_mlx_pixel_put(data_pixel,j * 16 + x,i *16 + y,0xFFFFFF);
 						x++;
 					}
 					y++;
@@ -140,12 +138,12 @@ int	put_segment(t_window *data_mlx, t_data_game *data_game,t_data_pixel *data_pi
 			if (data_game->map_data.map[i][j] == '0')
 			{
 				y = 0;
-				while (y < 32)
+				while (y < 16)
 				{
 					x = 0;
-					while (x < 32)
+					while (x < 16)
 					{
-						my_mlx_pixel_put(data_pixel,j * 32 + x,i *32 + y,0xF00FFF);
+						my_mlx_pixel_put(data_pixel,j * 16 + x,i *16 + y,0xF00FFF);
 						x++;
 					}
 					y++;
@@ -160,6 +158,7 @@ int	put_segment(t_window *data_mlx, t_data_game *data_game,t_data_pixel *data_pi
 					data_game->player_pos.player_pos_y = i;
 					data_game->player_pos.player_angle = -M_PI / 2;
 					data_game->flag.fisrt_pos_flag = 1;
+					data_game->map_data.map[i][j] = '0';
 				}
 			}
 			j++;
@@ -168,12 +167,12 @@ int	put_segment(t_window *data_mlx, t_data_game *data_game,t_data_pixel *data_pi
 	}
 	
 	y = 0;
-    while (y < 32)
+    while (y < 16)
     {
         x = 0;
-        while (x < 32)
+        while (x < 16)
         {
-			my_mlx_pixel_put(data_pixel,(int)(data_game->player_pos.player_pos_x * 32) + x,(int)(data_game->player_pos.player_pos_y * 32) + y, 0x000066);
+			my_mlx_pixel_put(data_pixel,(int)(data_game->player_pos.player_pos_x * 16) + x,(int)(data_game->player_pos.player_pos_y * 16) + y, 0x000066);
             x++;
         }
         y++;
