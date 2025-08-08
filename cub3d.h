@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/06 14:43:40 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/08 12:36:46 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@ typedef struct s_wall
 	char			*direction;
 	char			*texure_file;
 }					t_wall;
+
+typedef struct s_data_pixel 
+{
+    void    *img_ptr;      
+    char    *addr;         
+    int     bits_per_pixel; 
+    int     line_length;   
+    int     endian;        
+} t_data_pixel;
 
 typedef struct s_ceil_floor_colors
 {
@@ -66,11 +75,11 @@ typedef struct s_player_pos
 	float player_pos_y;
 	float player_angle;
 }t_player_pos;
+
 typedef struct s_segment
 {
 	t_point p1;
-	t_point p2;
-	
+	t_point p2;	
 }t_segment;
 
 typedef struct s_data_game
@@ -82,13 +91,15 @@ typedef struct s_data_game
 	t_map_data		map_data;
 	t_player_pos	player_pos;
 	t_window		*data_mlx;
+	t_data_pixel    *data_pixel;
 }					t_data_game;
 
 /*
  * utils
  */
 int					check_ext(char *str,char *extension);
-int 			key_code(int key,t_data_game *data);
+int 				key_code(int key,t_data_game *data);
+
 
 /*
  * parsing
@@ -107,8 +118,9 @@ int					init_map(char *file, t_data_game *data_game);
 
 int					init_data_game(t_data_game *data_game);
 int					init_flag(t_flag *flag);
+int 				init_data_pixel(t_data_pixel *data_pixel);
 
 /*
  *raycasting
  */
-int					put_segment(t_window *data_mlx,t_data_game *data_map);
+int					put_segment(t_window *data_mlx,t_data_game *data_map,t_data_pixel *data_pixel);
