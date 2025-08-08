@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/08 12:57:47 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/08 13:21:47 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ int	main(int argc, char **argv)
     	return (1);
 
 	data_game->data_mlx = data_mlx;
+	data_game->data_pixel = data_pixel;
 	data_pixel->img_ptr = mlx_new_image(data_mlx->mlx_ptr, 2000, 1090);
 	data_pixel->addr = mlx_get_data_addr(data_pixel->img_ptr, &data_pixel->bits_per_pixel, 
      	                     &data_pixel->line_length, &data_pixel->endian);
 
-	//mlx_key_hook(data_mlx->window_ptr,key_code,data_game);
+	mlx_hook(data_mlx->window_ptr,KeyPress,KeyPressMask,key_code,data_game);
 	put_segment(data_mlx,data_game,data_pixel);
 	mlx_loop(data_mlx->mlx_ptr);
 	free_split(data_game->map_data.map);

@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/08 12:36:46 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/08 13:09:53 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "mlx/mlx.h"
 #include <math.h>
 #include <stdio.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 
 typedef struct s_wall
 {
