@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/08 13:21:47 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:42:38 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_data_game	*data_game;
 	t_window *data_mlx;
 	t_data_pixel *data_pixel;
-	
+
 	data_pixel = malloc(sizeof(t_data_pixel));
 	data_game = malloc(sizeof(t_data_game));
 	data_mlx = malloc(sizeof(t_window));
@@ -51,7 +51,7 @@ int	main(int argc, char **argv)
 	data_pixel->img_ptr = mlx_new_image(data_mlx->mlx_ptr, 2000, 1090);
 	data_pixel->addr = mlx_get_data_addr(data_pixel->img_ptr, &data_pixel->bits_per_pixel, 
      	                     &data_pixel->line_length, &data_pixel->endian);
-
+	
 	mlx_hook(data_mlx->window_ptr,KeyPress,KeyPressMask,key_code,data_game);
 	put_segment(data_mlx,data_game,data_pixel);
 	mlx_loop(data_mlx->mlx_ptr);
@@ -59,6 +59,48 @@ int	main(int argc, char **argv)
 	free(data_game);
 }
 
+
+// int main(int argc, char **argv)
+// {
+//     t_data_game	*data_game;
+// 	t_window *data_mlx;
+// 	t_data_pixel *data_pixel;
+// 	int h, w;
+//     void *img;
+	
+// 	data_pixel = malloc(sizeof(t_data_pixel));
+// 	data_game = malloc(sizeof(t_data_game));
+// 	data_mlx = malloc(sizeof(t_window));
+// 	if (argc != 2)
+// 		return (free(data_game), ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
+// 	if (check_ext(argv[1], ".cub") == -1)
+// 		return (free(data_game), ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
+
+//     data_mlx->mlx_ptr = mlx_init();
+//     if (!data_mlx->mlx_ptr)
+//     {
+//         fprintf(stderr, "Erreur init MLX\n");
+//         return 1;
+//     }
+
+//     data_mlx->window_ptr = mlx_new_window(data_mlx->mlx_ptr, 800, 600, "Test wall.xpm");
+//     if (!data_mlx->window_ptr)
+//     {
+//         fprintf(stderr, "Erreur: échec du chargement de l'image wall.xpm\n");
+//         return 1;
+//     }
+
+//     img = mlx_xpm_file_to_image(data_mlx->mlx_ptr, "wall.xpm", &w, &h);
+//     if (!img)
+//     {
+//         perror("mlx_xpm_file_to_image");
+//         fprintf(stderr, "Erreur: échec du chargement de l'image wall.xpm\n");
+//         return 1;
+//     }
+//     mlx_put_image_to_window(data_mlx->mlx_ptr, data_mlx->window_ptr, img, 100, 100);
+//     mlx_loop(data_mlx->mlx_ptr);
+//     return 0;
+// }
 
 
 

@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/08 13:47:30 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/20 15:04:02 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,46 +50,81 @@ int	key_code(int key, t_data_game *data)
 		data->player_pos.player_angle += 0.1;
 	else if (key == 97)
 		data->player_pos.player_angle -= 0.1;
-		
-	//printf("%f\n%f",data->player_pos.player_pos_x + cos(data->player_pos.player_angle) * 0.5,data->player_pos.player_pos_y + sin(data->player_pos.player_angle) * 0.5);
-	
-	mlx_clear_window(data->data_mlx->mlx_ptr,data->data_mlx->window_ptr);
+	else if(key == 65307)
+		exit(1);
+	//mlx_clear_window(data->data_mlx->mlx_ptr,data->data_mlx->window_ptr);
 	put_segment(data->data_mlx, data,data->data_pixel);
-	//mlx_put_image_to_window(data->data_mlx->mlx_ptr,data->data_mlx->window_ptr,data->data_pixel->img_ptr,0,0);
 	printf("key code = %d\n", key);
 	return (0);
 }
-
-void	ray_cast(t_data_game *data, t_window *data_mlx, float ray_angle,t_data_pixel *data_pixel)
+int	put_wall(t_data_game *data ,int ray_x,int ray_y)
 {
-	float	ray_x;
-	float	ray_y;
-	int		map_x;
-	int		map_y;
-	float	ray_dir_x;
-	float	ray_dir_y;
-	int		i;
+	void *wall;
+	int h;
+	int w;
 
-	(void)data_mlx;
-	ray_x = data->player_pos.player_pos_x * 16 + 8;
-	ray_y = data->player_pos.player_pos_y * 16 + 8;
-	ray_dir_x =  cos(ray_angle);
-	ray_dir_y =  sin(ray_angle);
-	i = 0;
+	wall = mlx_xpm_file_to_image(data->data_mlx->mlx_ptr,"wall.xpm", &w, &h);
+	mlx_put_image_to_window(data->data_mlx->mlx_ptr,data->data_mlx->window_ptr,wall,ray_x,ray_y);
+	return (0);
+}
+void draw_background(t_data_pixel *data_pixel)
+{
+    for (int y = 0; y < 1090; y++)
+    {
+        int color = (y < 545) ? 0x87CEEB : 0x228B22;
+        for (int x = 0; x < 2000; x++)
+            my_mlx_pixel_put(data_pixel, x, y, color);
+    }
+}
+
+int	put_wall_segement(t_data_game *data, int i)
+{
+	int y;
+	int vx;
+	int vy;
+	int dist;
+	
+	vx = data->ray_data.ray_x - (data->player_pos.player_pos_x * 16 + 8);
+	vy = data->ray_data.ray_y - (data->player_pos.player_pos_y * 16 + 8);
+	dist = sqrtf(pow(vx, 2) + pow(vy, 2));
+
+	int wall_height = (int)(1090 / dist) * 16 + 8;
+	int draw_start = (1090 / 2) - (wall_height / 2);
+	int draw_end = (1090 / 2) + (wall_height / 2);
+
+	y = draw_start;
+	while (y < draw_end)
+	{
+		my_mlx_pixel_put(data->data_pixel, i, y, 0xFF0000);
+		y++;
+	}
+	return (0);
+	
+}
+
+void	ray_cast(t_data_game *data, float ray_angle,t_data_pixel *data_pixel, int i)
+{
+	
+	(void)i;
+	data->ray_data.ray_x = data->player_pos.player_pos_x * 16 + 8;
+	data->ray_data.ray_y = data->player_pos.player_pos_y * 16 + 8;
+	
+	data->ray_data.ray_dir_x =  cos(ray_angle);
+	data->ray_data.ray_dir_y =  sin(ray_angle);
 	(void)data_pixel;
 	while (1)
 	{
-		map_x = (int)(ray_x / 16);
-		map_y = (int)(ray_y / 16);
-		if (data->map_data.map[map_y][map_x] == '1')
+		data->ray_data.map_x = (int)(data->ray_data.ray_x / 16);
+		data->ray_data.map_y = (int)(data->ray_data.ray_y / 16);
+		if (data->map_data.map[data->ray_data.map_y][data->ray_data.map_x] == '1')
+		{
 			break ;
-		my_mlx_pixel_put(data_pixel,(int)ray_x,(int)ray_y,0xFF0000);
-		//mlx_pixel_put(data_mlx->mlx_ptr, data_mlx->window_ptr, (int)ray_x,
-		//(int)ray_y, 0xFF0000);
-		//printf("ray_x = %f ray_y = %f\n",ray_x - ray_dir_x,ray_y - ray_dir_y);
-		ray_x += ray_dir_x * 1;
-		ray_y += ray_dir_y * 1;
+		}
+		my_mlx_pixel_put(data_pixel,(int)data->ray_data.ray_x,(int)data->ray_data.ray_y,0xFF0000);
+		data->ray_data.ray_x += data->ray_data.ray_dir_x * 1;
+		data->ray_data.ray_y += data->ray_data.ray_dir_y * 1;
 	}
+	put_wall_segement(data, i);
 }
 
 int	put_segment(t_window *data_mlx, t_data_game *data_game,t_data_pixel *data_pixel)
@@ -99,22 +134,10 @@ int	put_segment(t_window *data_mlx, t_data_game *data_game,t_data_pixel *data_pi
 	int x;
 	int y;
 
-	// t_segment segment;
-	// segment.p1.x = 100;
-	// segment.p1.y = 500;
-	// segment.p2.x = 2000;
-	// segment.p2.y = 300;
-
-	// int p1 = segment.p2.x - segment.p1.x;
-	// int p2 = segment.p2.y - segment.p1.y;
-	// int longeur = p1 + p2 - 1000;
-
 	j = 0;
 	i = 0;
 	x = 0;
 	y = 0;
-
-	
 	while (data_game->map_data.map[i])
 	{
 		j = 0;
@@ -178,16 +201,17 @@ int	put_segment(t_window *data_mlx, t_data_game *data_game,t_data_pixel *data_pi
         y++;
     }
 	float fov = M_PI / 3;
-	int num_rays = 1920;
+	int num_rays = 2000;
 	float ray_angle;
 	i = 0;
-	
+	draw_background(data_pixel);
 	while (i < num_rays)
 	{
 		ray_angle = data_game->player_pos.player_angle - fov/2 + (fov * i / num_rays);
-		ray_cast(data_game, data_mlx, ray_angle,data_pixel);
+		ray_cast(data_game, ray_angle, data_pixel, i);
 		i++;
 	}
+	
 	mlx_put_image_to_window(data_mlx->mlx_ptr,data_mlx->window_ptr,data_pixel->img_ptr,0,0);
 	return (0);
 }

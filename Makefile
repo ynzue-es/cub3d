@@ -6,14 +6,14 @@
 #    By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:04:02 by yannis            #+#    #+#              #
-#    Updated: 2025/08/05 12:26:23 by engiusep         ###   ########.fr        #
+#    Updated: 2025/08/20 11:12:12 by engiusep         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLXFLAGS = -Lmlx -lmlx -L/usr/lib -lXext -lX11 -lm
+MLXFLAGS = -Lmlx -lmlx -L/usr/lib -lXext -lX11  -lm 
 SRCDIR = src
 OBJDIR = obj
 
