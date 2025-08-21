@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/20 15:04:02 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:50:00 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,25 @@ void draw_background(t_data_pixel *data_pixel)
     }
 }
 
-int	put_wall_segement(t_data_game *data, int i)
+#define FOV_RAD (60.0f * (M_PI/180.0f))
+#define TILE_SIZE   16
+#define SCREEN_W    1090
+#define SCREEN_H    1090
+
+int	put_wall_segement(t_data_game *data, int i, float ray_angle)
 {
 	int y;
-	int vx;
-	int vy;
-	int dist;
+	float vx;
+	float vy;
+	float dist;
 	
 	vx = data->ray_data.ray_x - (data->player_pos.player_pos_x * 16 + 8);
 	vy = data->ray_data.ray_y - (data->player_pos.player_pos_y * 16 + 8);
 	dist = sqrtf(pow(vx, 2) + pow(vy, 2));
-
-	int wall_height = (int)(1090 / dist) * 16 + 8;
+	dist = dist * cos(ray_angle - data->player_pos.player_angle);
+	float proj_plane = (SCREEN_W / 2.0f) / tanf(FOV_RAD / 2.0f);
+	
+	int wall_height = (16 * proj_plane) / dist;
 	int draw_start = (1090 / 2) - (wall_height / 2);
 	int draw_end = (1090 / 2) + (wall_height / 2);
 
@@ -116,15 +123,17 @@ void	ray_cast(t_data_game *data, float ray_angle,t_data_pixel *data_pixel, int i
 	{
 		data->ray_data.map_x = (int)(data->ray_data.ray_x / 16);
 		data->ray_data.map_y = (int)(data->ray_data.ray_y / 16);
+		
 		if (data->map_data.map[data->ray_data.map_y][data->ray_data.map_x] == '1')
-		{
 			break ;
-		}
+			
 		my_mlx_pixel_put(data_pixel,(int)data->ray_data.ray_x,(int)data->ray_data.ray_y,0xFF0000);
+		
+		
 		data->ray_data.ray_x += data->ray_data.ray_dir_x * 1;
 		data->ray_data.ray_y += data->ray_data.ray_dir_y * 1;
 	}
-	put_wall_segement(data, i);
+	put_wall_segement(data, i, ray_angle);
 }
 
 int	put_segment(t_window *data_mlx, t_data_game *data_game,t_data_pixel *data_pixel)
@@ -209,6 +218,7 @@ int	put_segment(t_window *data_mlx, t_data_game *data_game,t_data_pixel *data_pi
 	{
 		ray_angle = data_game->player_pos.player_angle - fov/2 + (fov * i / num_rays);
 		ray_cast(data_game, ray_angle, data_pixel, i);
+		
 		i++;
 	}
 	
