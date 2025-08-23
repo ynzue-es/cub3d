@@ -6,16 +6,19 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 13:25:52 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 14:05:28 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "mlx/mlx.h"
+#include <X11/X.h>
+#include <X11/keysym.h>
 #include <math.h>
 #include <stdio.h>
-# include <X11/X.h>
-# include <X11/keysym.h>
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
 
 typedef struct s_wall
 {
@@ -23,14 +26,14 @@ typedef struct s_wall
 	char			*texure_file;
 }					t_wall;
 
-typedef struct s_data_pixel 
+typedef struct s_data_pixel
 {
-    void    *img_ptr;      
-    char    *addr;         
-    int     bits_per_pixel; 
-    int     line_length;   
-    int     endian;        
-} t_data_pixel;
+	void			*img_ptr;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+}					t_data_pixel;
 
 typedef struct s_ceil_floor_colors
 {
@@ -47,9 +50,9 @@ typedef struct s_map_data
 
 typedef struct s_window
 {
-	void *mlx_ptr;
-	void *window_ptr;
-}	t_window;
+	void			*mlx_ptr;
+	void			*window_ptr;
+}					t_window;
 
 typedef struct s_flag
 {
@@ -61,39 +64,25 @@ typedef struct s_flag
 	int				east_flag;
 	int				player_flag;
 	int				fisrt_pos_flag;
-	
 
-}			t_flag;
-
-typedef struct s_point
-{
-	int x;
-	int y;
-		}t_point;
+}					t_flag;
 
 typedef struct s_player_pos
 {
-	float player_pos_x;
-	float player_pos_y;
-	float player_angle;
-}t_player_pos;
-
-typedef struct s_segment
-{
-	t_point p1;
-	t_point p2;	
-}t_segment;
-
+	float			player_pos_x;
+	float			player_pos_y;
+	float			player_angle;
+}					t_player_pos;
 
 typedef struct s_ray_data
 {
-	float	ray_x;
-	float	ray_y;
-	int		map_x;
-	int		map_y;
-	float	ray_dir_x;
-	float	ray_dir_y;
-}			t_ray_data;
+	float			ray_x;
+	float			ray_y;
+	int				map_x;
+	int				map_y;
+	float			ray_dir_x;
+	float			ray_dir_y;
+}					t_ray_data;
 
 typedef struct s_data_game
 {
@@ -104,17 +93,15 @@ typedef struct s_data_game
 	t_map_data		map_data;
 	t_player_pos	player_pos;
 	t_window		*data_mlx;
-	t_data_pixel    *data_pixel;
+	t_data_pixel	*data_pixel;
 	t_ray_data		ray_data;
 }					t_data_game;
-
 
 /*
  * utils
  */
-int					check_ext(char *str,char *extension);
-int 				key_code(int key,t_data_game *data);
-
+int					check_ext(char *str, char *extension);
+int					key_code(int key, t_data_game *data);
 
 /*
  * parsing
@@ -133,15 +120,15 @@ int					init_map(char *file, t_data_game *data_game);
 
 int					init_data_game(t_data_game *data_game);
 int					init_flag(t_flag *flag);
-int 				init_data_pixel(t_data_pixel *data_pixel);
+int					init_data_pixel(t_data_pixel *data_pixel);
 
 /*
  *raycasting
  */
-int					put_segment(t_window *data_mlx,t_data_game *data_map,t_data_pixel *data_pixel);
-
+int					put_segment(t_window *data_mlx, t_data_game *data_map,
+						t_data_pixel *data_pixel);
 
 /*
  *keyboard
  */
-int 				key_code(int key, t_data_game *data);
+int					key_code(int key, t_data_game *data);
