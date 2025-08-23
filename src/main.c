@@ -6,33 +6,40 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 14:38:09 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 14:50:23 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 
-int init_mlx(t_window **data_mlx, t_data_pixel **data_pixel)
+int init_mlx(t_data_game **data_game)
 {
-    (*data_mlx)->mlx_ptr = mlx_init();
-    if (!(*data_mlx)->mlx_ptr)
-        return (1);
-    (*data_mlx)->window_ptr = mlx_new_window((*data_mlx)->mlx_ptr, 2000, 1090, "cub3d");
-    if (!(*data_mlx)->window_ptr)
-        return (1);
-    (*data_pixel)->img_ptr = mlx_new_image((*data_mlx)->mlx_ptr, 2000, 1090);
-    (*data_pixel)->addr = mlx_get_data_addr((*data_pixel)->img_ptr, &(*data_pixel)->bits_per_pixel,
-                             &(*data_pixel)->line_length, &(*data_pixel)->endian);
-    return (0);
+    (*data_game)->data_mlx.mlx_ptr = mlx_init();
+    if (!(*data_game)->data_mlx.mlx_ptr) return 1;
+
+    (*data_game)->data_mlx.window_ptr =
+        mlx_new_window((*data_game)->data_mlx.mlx_ptr, 2000, 1090, "cub3d");
+    if (!(*data_game)->data_mlx.window_ptr) return 1;
+
+    (*data_game)->data_pixel.img_ptr =
+        mlx_new_image((*data_game)->data_mlx.mlx_ptr, 2000, 1090);
+    if (!(*data_game)->data_pixel.img_ptr) return 1;
+
+    (*data_game)->data_pixel.addr =
+        mlx_get_data_addr((*data_game)->data_pixel.img_ptr,
+            &(*data_game)->data_pixel.bits_per_pixel,
+            &(*data_game)->data_pixel.line_length,
+            &(*data_game)->data_pixel.endian);
+    if (!(*data_game)->data_pixel.addr) return 1;
+
+    return 0;
 }
 
-static int init_structs(t_data_game **data_game, t_window **data_mlx, t_data_pixel **data_pixel)
+static int init_structs(t_data_game **data_game)
 {
-    *data_pixel = malloc(sizeof(t_data_pixel));
     *data_game = malloc(sizeof(t_data_game));
-    *data_mlx = malloc(sizeof(t_window));
-    if (!*data_pixel || !*data_game || !*data_mlx)
+    if (!*data_game)
         return (1);
     return (0);
 }
@@ -60,30 +67,26 @@ static int init_map_and_flags(int argc, char **argv, t_data_game **data_game)
     return (0);
 }
 
-int init_game(int argc, char **argv, t_data_game **data_game, t_window **data_mlx, t_data_pixel **data_pixel)
+int init_game(int argc, char **argv, t_data_game **data_game)
 {
-    if (init_structs(data_game, data_mlx, data_pixel) != 0)
+    if (init_structs(data_game) != 0)
         return (1);
     if (init_map_and_flags(argc, argv, data_game) != 0)
         return (1);
-    if (init_mlx(data_mlx, data_pixel) != 0)
+    if (init_mlx(data_game) != 0)
         return (1);
-    (*data_game)->data_mlx = *data_mlx;
-    (*data_game)->data_pixel = *data_pixel;
     return (0);
 }
 
 int main(int argc, char **argv)
 {
 	t_data_game *data_game;
-	t_window *data_mlx;
-	t_data_pixel *data_pixel;
 
-	if (init_game(argc, argv, &data_game, &data_mlx, &data_pixel) != 0)
+	if (init_game(argc, argv, &data_game) != 0)
 		return (1);
-	mlx_hook(data_mlx->window_ptr, KeyPress, KeyPressMask, key_code, data_game);
-	game_view(data_mlx, data_game, data_pixel);
-	mlx_loop(data_mlx->mlx_ptr);
+	mlx_hook(data_game->data_mlx.window_ptr, KeyPress, KeyPressMask, key_code, data_game);
+	game_view(data_game);
+	mlx_loop(data_game->data_mlx.mlx_ptr);
 	free_split(data_game->map_data.map);
 	free(data_game);
 	return (0);

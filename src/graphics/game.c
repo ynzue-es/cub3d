@@ -6,20 +6,20 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/23 14:19:30 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 14:53:11 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-int	put_wall(t_data_game *data ,int ray_x,int ray_y)
+int	put_wall(t_data_game *data_game ,int ray_x,int ray_y)
 {
 	void *wall;
 	int h;
 	int w;
 
-	wall = mlx_xpm_file_to_image(data->data_mlx->mlx_ptr,"wall.xpm", &w, &h);
-	mlx_put_image_to_window(data->data_mlx->mlx_ptr,data->data_mlx->window_ptr,wall,ray_x,ray_y);
+	wall = mlx_xpm_file_to_image(data_game->data_mlx.mlx_ptr,"wall.xpm", &w, &h);
+	mlx_put_image_to_window(data_game->data_mlx.mlx_ptr,data_game->data_mlx.window_ptr, wall, ray_x,ray_y);
 	return (0);
 }
 
@@ -69,7 +69,7 @@ int find_player_start(t_data_game *data_game)
 	return (0);
 }
 
-int	game_view(t_window *data_mlx, t_data_game *data_game,t_data_pixel *data_pixel)
+int	game_view(t_data_game *data_game)
 {
 	int i;
 	float fov = M_PI / 3;
@@ -79,13 +79,13 @@ int	game_view(t_window *data_mlx, t_data_game *data_game,t_data_pixel *data_pixe
 	find_player_start(data_game);
 
 	i = 0;
-	draw_background(data_pixel);
+	draw_background(&data_game->data_pixel);
 	while (i < num_rays)
 	{
 		ray_angle = data_game->player_pos.player_angle - fov/2 + (fov * i / num_rays);
 		ray_cast(data_game, ray_angle, i);
 		i++;
 	}
-	mlx_put_image_to_window(data_mlx->mlx_ptr,data_mlx->window_ptr,data_pixel->img_ptr,0,0);
+	mlx_put_image_to_window(data_game->data_mlx.mlx_ptr, data_game->data_mlx.window_ptr, data_game->data_pixel.img_ptr,0,0);
 	return (0);
 }

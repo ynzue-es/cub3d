@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 14:38:12 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 14:48:42 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ typedef struct s_data_game
 	t_flag			flag;
 	t_map_data		map_data;
 	t_player_pos	player_pos;
-	t_window		*data_mlx;
-	t_data_pixel	*data_pixel;
+	t_window		data_mlx;
+	t_data_pixel	data_pixel;
 	t_ray_data		ray_data;
 }					t_data_game;
 
@@ -123,8 +123,7 @@ int					init_flag(t_flag *flag);
 /*
  * game_view
  */
-int					game_view(t_window *data_mlx, t_data_game *data_map,
-						t_data_pixel *data_pixel);
+int					game_view(t_data_game *data_game);
 
 /*
  * keyboard
