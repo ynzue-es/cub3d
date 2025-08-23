@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:19:50 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 15:11:46 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 15:22:53 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	init_data_game(t_data_game *data_game)
 	return (0);
 }
 
-int init_flag(t_flag *flag)
+int	init_flag(t_flag *flag)
 {
 	flag->ceil_flag = 0;
 	flag->floor_flag = 0;

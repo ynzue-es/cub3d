@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 09:58:17 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/05 10:43:24 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:23:01 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,18 @@ int	check_zero(int i, int j, char **map)
 	int	len;
 
 	len = ft_strlen(map[i]);
-	if (map[i][j] == '0' || map[i][j] == 'S' || map[i][j] == 'N' || map[i][j] == 'W'|| map[i][j] == 'E')
+	if (map[i][j] == '0' || map[i][j] == 'S' || map[i][j] == 'N'
+		|| map[i][j] == 'W' || map[i][j] == 'E')
 	{
-		if (i == 0 && (map[i][j] == '0' || map[i][j] == 'S' || map[i][j] == 'N' || map[i][j] == 'W'|| map[i][j] == 'E'))
-            return (-1);
-		if (map[i][len - 1] == '0' || map[i][len - 1] == 'S' || map[i][len - 1] == 'N' || map[i][len - 1] == 'W'|| map[i][len - 1] == 'E')
+		if (i == 0 && (map[i][j] == '0' || map[i][j] == 'S' || map[i][j] == 'N'
+				|| map[i][j] == 'W' || map[i][j] == 'E'))
 			return (-1);
-        if(j == 0 && (map[i][j] == '0' || map[i][j] == 'S' || map[i][j] == 'N'|| map[i][j] == 'W'|| map[i][j] == 'E'))
-            return (-1);
+		if (map[i][len - 1] == '0' || map[i][len - 1] == 'S' || map[i][len
+			- 1] == 'N' || map[i][len - 1] == 'W' || map[i][len - 1] == 'E')
+			return (-1);
+		if (j == 0 && (map[i][j] == '0' || map[i][j] == 'S' || map[i][j] == 'N'
+				|| map[i][j] == 'W' || map[i][j] == 'E'))
+			return (-1);
 	}
 	if (map[i][j] == ' ')
 	{
