@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 11:45:59 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/05 10:52:26 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/23 11:56:25 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,7 @@ static int	add_color(char *line, t_data_game *data_game, t_flag *flag)
 	char	**spl;
 	char	letter;
 	int		i;
-	int		j;
 
-	j = 0;
 	i = 0;
 	letter = 0;
 	while (line[i] == ' ' && line[i] != 'F' && line[i] != 'C')

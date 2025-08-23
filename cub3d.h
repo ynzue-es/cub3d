@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/20 13:12:20 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/23 13:25:52 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,3 +139,9 @@ int 				init_data_pixel(t_data_pixel *data_pixel);
  *raycasting
  */
 int					put_segment(t_window *data_mlx,t_data_game *data_map,t_data_pixel *data_pixel);
+
+
+/*
+ *keyboard
+ */
+int 				key_code(int key, t_data_game *data);

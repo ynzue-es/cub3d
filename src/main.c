@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/20 12:42:38 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/23 13:25:22 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,50 +58,3 @@ int	main(int argc, char **argv)
 	free_split(data_game->map_data.map);
 	free(data_game);
 }
-
-
-// int main(int argc, char **argv)
-// {
-//     t_data_game	*data_game;
-// 	t_window *data_mlx;
-// 	t_data_pixel *data_pixel;
-// 	int h, w;
-//     void *img;
-	
-// 	data_pixel = malloc(sizeof(t_data_pixel));
-// 	data_game = malloc(sizeof(t_data_game));
-// 	data_mlx = malloc(sizeof(t_window));
-// 	if (argc != 2)
-// 		return (free(data_game), ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
-// 	if (check_ext(argv[1], ".cub") == -1)
-// 		return (free(data_game), ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
-
-//     data_mlx->mlx_ptr = mlx_init();
-//     if (!data_mlx->mlx_ptr)
-//     {
-//         fprintf(stderr, "Erreur init MLX\n");
-//         return 1;
-//     }
-
-//     data_mlx->window_ptr = mlx_new_window(data_mlx->mlx_ptr, 800, 600, "Test wall.xpm");
-//     if (!data_mlx->window_ptr)
-//     {
-//         fprintf(stderr, "Erreur: échec du chargement de l'image wall.xpm\n");
-//         return 1;
-//     }
-
-//     img = mlx_xpm_file_to_image(data_mlx->mlx_ptr, "wall.xpm", &w, &h);
-//     if (!img)
-//     {
-//         perror("mlx_xpm_file_to_image");
-//         fprintf(stderr, "Erreur: échec du chargement de l'image wall.xpm\n");
-//         return 1;
-//     }
-//     mlx_put_image_to_window(data_mlx->mlx_ptr, data_mlx->window_ptr, img, 100, 100);
-//     mlx_loop(data_mlx->mlx_ptr);
-//     return 0;
-// }
-
-
-
-

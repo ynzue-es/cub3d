@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:33:32 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/04 13:12:52 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/23 11:56:40 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,7 @@ int add_tab_ceil_floor(char *line, int *ceil_floor)
 	char **new_split;
 	char *new_str;
 	int convert;
-	int i;
 
-	i = 0;
 	new_str = clear_str(line);
 	new_split = ft_split(new_str,',');
 	if (!new_split)
