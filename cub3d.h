@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 14:59:41 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 15:13:24 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_data_game
 	t_window		data_mlx;
 	t_data_pixel	data_pixel;
 	t_ray_data		ray_data;
+	int				tile_size;
 }					t_data_game;
 
 /*
@@ -135,6 +136,6 @@ int					key_code(int key, t_data_game *data);
 /*
  * pixel_display
  */
-int					put_wall_segement(t_data_game *data, int i,
+int					put_wall_segement(t_data_game *data_game, int i,
 						float ray_angle);
-void				draw_background(t_data_pixel *data_pixel);
+void draw_background(t_data_game *data_game);

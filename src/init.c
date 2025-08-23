@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:19:50 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 15:01:59 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 15:11:46 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	init_data_game(t_data_game *data_game)
 	data_game->map_data.width = 0;
 	data_game->data_mlx.height = 1090;
 	data_game->data_mlx.width = 2000;
+	data_game->tile_size = 16;
 	return (0);
 }
 
