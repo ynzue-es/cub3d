@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 14:05:28 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 14:38:12 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ typedef struct s_data_game
  * utils
  */
 int					check_ext(char *str, char *extension);
-int					key_code(int key, t_data_game *data);
 
 /*
  * parsing
@@ -120,15 +119,21 @@ int					init_map(char *file, t_data_game *data_game);
 
 int					init_data_game(t_data_game *data_game);
 int					init_flag(t_flag *flag);
-int					init_data_pixel(t_data_pixel *data_pixel);
 
 /*
- *raycasting
+ * game_view
  */
-int					put_segment(t_window *data_mlx, t_data_game *data_map,
+int					game_view(t_window *data_mlx, t_data_game *data_map,
 						t_data_pixel *data_pixel);
 
 /*
- *keyboard
+ * keyboard
  */
 int					key_code(int key, t_data_game *data);
+
+/*
+ * pixel_display
+ */
+int					put_wall_segement(t_data_game *data, int i,
+						float ray_angle);
+void				draw_background(t_data_pixel *data_pixel);

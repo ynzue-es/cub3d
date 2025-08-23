@@ -6,7 +6,7 @@
 #    By: yannis <yannis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:04:02 by yannis            #+#    #+#              #
-#    Updated: 2025/08/23 13:26:06 by yannis           ###   ########.fr        #
+#    Updated: 2025/08/23 14:11:43 by yannis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,9 @@ SRCS = 	main.c \
 		parsing/parse_cub.c \
 		parsing/parse_utils.c \
 		parsing/parse_map.c \
-		raycasting/segment.c \
-		raycasting/keyboard.c \
+		graphics/game.c \
+		graphics/keyboard.c \
+		graphics/pixel_display.c \
 
 SRCFILES = $(addprefix $(SRCDIR)/, $(SRCS))
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))

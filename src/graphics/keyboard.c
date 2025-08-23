@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 13:18:12 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 13:26:29 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 14:17:14 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int key_code(int key, t_data_game *data)
 		rotate_player(data, -0.1);
 	else if (key == 65307)
 		exit_game();
-	put_segment(data->data_mlx, data, data->data_pixel);
+	game_view(data->data_mlx, data, data->data_pixel);
 	printf("key code = %d\n", key);
 	return (0);
 }
