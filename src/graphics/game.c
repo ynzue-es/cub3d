@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/23 14:53:11 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 15:03:39 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,14 @@ int find_player_start(t_data_game *data_game)
 int	game_view(t_data_game *data_game)
 {
 	int i;
-	float fov = M_PI / 3;
-	int num_rays = 2000;
+	float fov;
+	int num_rays;
 	float ray_angle;
 
-	find_player_start(data_game);
-
+	fov = M_PI / 3;
+	num_rays = data_game->data_mlx.width;
 	i = 0;
+	find_player_start(data_game);
 	draw_background(&data_game->data_pixel);
 	while (i < num_rays)
 	{

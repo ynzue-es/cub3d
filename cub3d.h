@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 14:48:42 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 14:59:41 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_window
 {
 	void			*mlx_ptr;
 	void			*window_ptr;
+	int				width;
+	int				height;
 }					t_window;
 
 typedef struct s_flag

@@ -6,12 +6,11 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 14:50:23 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/23 15:05:59 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
 
 int init_mlx(t_data_game **data_game)
 {
@@ -19,11 +18,11 @@ int init_mlx(t_data_game **data_game)
     if (!(*data_game)->data_mlx.mlx_ptr) return 1;
 
     (*data_game)->data_mlx.window_ptr =
-        mlx_new_window((*data_game)->data_mlx.mlx_ptr, 2000, 1090, "cub3d");
+        mlx_new_window((*data_game)->data_mlx.mlx_ptr, (*data_game)->data_mlx.width, (*data_game)->data_mlx.height, "cub3d");
     if (!(*data_game)->data_mlx.window_ptr) return 1;
 
     (*data_game)->data_pixel.img_ptr =
-        mlx_new_image((*data_game)->data_mlx.mlx_ptr, 2000, 1090);
+        mlx_new_image((*data_game)->data_mlx.mlx_ptr, (*data_game)->data_mlx.width, (*data_game)->data_mlx.height);
     if (!(*data_game)->data_pixel.img_ptr) return 1;
 
     (*data_game)->data_pixel.addr =
