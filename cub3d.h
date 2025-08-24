@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 15:13:24 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/24 11:46:35 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ typedef struct s_data_pixel
 	int				line_length;
 	int				endian;
 }					t_data_pixel;
+
+typedef struct s_wall_texture
+{
+	void			*img_ptr;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	int				width;
+	int				height;
+}					t_wall_texture;
 
 typedef struct s_ceil_floor_colors
 {
@@ -84,6 +95,13 @@ typedef struct s_ray_data
 	int				map_y;
 	float			ray_dir_x;
 	float			ray_dir_y;
+	float			deltaDistX;
+	float			deltaDistY;
+	float			sideDistX;
+	float			sideDistY;
+	int				hit_side;
+	int				stepX;
+	int				stepY;
 }					t_ray_data;
 
 typedef struct s_data_game
@@ -98,6 +116,8 @@ typedef struct s_data_game
 	t_data_pixel	data_pixel;
 	t_ray_data		ray_data;
 	int				tile_size;
+	t_wall_texture	wall_texture;
+	float			fov;
 }					t_data_game;
 
 /*
@@ -136,6 +156,5 @@ int					key_code(int key, t_data_game *data);
 /*
  * pixel_display
  */
-int					put_wall_segement(t_data_game *data_game, int i,
-						float ray_angle);
-void draw_background(t_data_game *data_game);
+int put_wall_segement(t_data_game *g, int x, float perpWallDist, int hit_side);
+void				draw_background(t_data_game *data_game);

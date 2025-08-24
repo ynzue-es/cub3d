@@ -6,65 +6,94 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/23 15:22:31 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/24 12:04:13 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-int	put_wall(t_data_game *data_game, int ray_x, int ray_y)
+void nearest_side(t_data_game *g)
 {
-	void	*wall;
-	int		h;
-	int		w;
-
-	wall = mlx_xpm_file_to_image(data_game->data_mlx.mlx_ptr, "wall.xpm", &w,
-			&h);
-	mlx_put_image_to_window(data_game->data_mlx.mlx_ptr,
-		data_game->data_mlx.window_ptr, wall, ray_x, ray_y);
-	return (0);
+    if (g->ray_data.sideDistX < g->ray_data.sideDistY) {
+        g->ray_data.sideDistX += g->ray_data.deltaDistX;
+        g->ray_data.map_x += g->ray_data.stepX;
+        g->ray_data.hit_side = 0;
+    } else {
+        g->ray_data.sideDistY += g->ray_data.deltaDistY;
+        g->ray_data.map_y += g->ray_data.stepY;
+        g->ray_data.hit_side = 1;
+    }
 }
 
-void	ray_cast(t_data_game *data_game, float ray_angle, int i)
+void	ray_cast(t_data_game *g, float ray_angle, int i)
 {
-	data_game->ray_data.ray_x = data_game->player_pos.player_pos_x
-		* data_game->tile_size;
-	data_game->ray_data.ray_y = data_game->player_pos.player_pos_y
-		* data_game->tile_size;
-	data_game->ray_data.ray_dir_x = cos(ray_angle);
-	data_game->ray_data.ray_dir_y = sin(ray_angle);
+	g->ray_data.map_x = (int)g->player_pos.player_pos_x;
+	g->ray_data.map_y = (int)g->player_pos.player_pos_y;
+
+	// direction du rayon
+	g->ray_data.ray_dir_x = cos(ray_angle);
+	g->ray_data.ray_dir_y = sin(ray_angle);
+	//dist joueur vers bord premiere case
+	g->ray_data.deltaDistX = fabs(1 / g->ray_data.ray_dir_x);
+	g->ray_data.deltaDistY = fabs(1 / g->ray_data.ray_dir_y);
+	//direction des step X
+	if (g->ray_data.ray_dir_x < 0)
+	{
+		g->ray_data.stepX = -1;
+		g->ray_data.sideDistX = (g->player_pos.player_pos_x - g->ray_data.map_x) * g->ray_data.deltaDistX;
+	}
+	else
+	{
+		g->ray_data.stepX = 1;
+		g->ray_data.sideDistX = (g->ray_data.map_x + 1 - g->player_pos.player_pos_x) * g->ray_data.deltaDistX;
+	}
+	//direction des step Y
+	if (g->ray_data.ray_dir_y < 0)
+	{
+		g->ray_data.stepY = -1;
+		g->ray_data.sideDistY = (g->player_pos.player_pos_y - g->ray_data.map_y) * g->ray_data.deltaDistY;
+	}
+	else
+	{
+		g->ray_data.stepY = 1;
+		g->ray_data.sideDistY = (g->ray_data.map_y + 1 - g->player_pos.player_pos_y) * g->ray_data.deltaDistY;
+	}
+	
 	while (1)
 	{
-		data_game->ray_data.map_x = (int)(data_game->ray_data.ray_x
-				/ data_game->tile_size);
-		data_game->ray_data.map_y = (int)(data_game->ray_data.ray_y
-				/ data_game->tile_size);
-		if (data_game->map_data.map[data_game->ray_data.map_y][data_game->ray_data.map_x] == '1')
-			break ;
-		data_game->ray_data.ray_x += data_game->ray_data.ray_dir_x * 1;
-		data_game->ray_data.ray_y += data_game->ray_data.ray_dir_y * 1;
+		// ici pour chaque tile on va regarder le side le plus proche
+		nearest_side(g);
+		if (g->map_data.map[g->ray_data.map_y][g->ray_data.map_x] == '1')
+			break;
 	}
-	put_wall_segement(data_game, i, ray_angle);
+	
+	// fish eye
+	float perpWallDist = (g->ray_data.hit_side == 0)
+	? (g->ray_data.map_x - g->player_pos.player_pos_x + (1 - g->ray_data.stepX) * 0.5f) / g->ray_data.ray_dir_x
+	: (g->ray_data.map_y - g->player_pos.player_pos_y + (1 - g->ray_data.stepY) * 0.5f) / g->ray_data.ray_dir_y;
+	
+	put_wall_segement(g, i, perpWallDist, g->ray_data.hit_side);
 }
 
-int	find_player_start(t_data_game *data_game)
+
+int	find_player_start(t_data_game *g)
 {
 	int	x;
 	int	y;
 
 	x = 0;
-	while (data_game->map_data.map[x])
+	while (g->map_data.map[x])
 	{
 		y = 0;
-		while (data_game->map_data.map[x][y])
+		while (g->map_data.map[x][y])
 		{
 			// changer N unique
-			if (data_game->map_data.map[x][y] == 'N')
+			if (g->map_data.map[x][y] == 'N')
 			{
-				data_game->player_pos.player_pos_x = x;
-				data_game->player_pos.player_pos_y = y;
-				data_game->player_pos.player_angle = -M_PI / 2;
-				data_game->map_data.map[x][y] = '0';
+				g->player_pos.player_pos_x = x;
+				g->player_pos.player_pos_y = y;
+				g->player_pos.player_angle = -M_PI / 2;
+				g->map_data.map[x][y] = '0';
 			}
 			y++;
 		}
@@ -73,26 +102,25 @@ int	find_player_start(t_data_game *data_game)
 	return (0);
 }
 
-int	game_view(t_data_game *data_game)
+int	game_view(t_data_game *g)
 {
 	int		i;
-	float	fov;
 	int		num_rays;
 	float	ray_angle;
 
-	fov = M_PI / 3;
-	num_rays = data_game->data_mlx.width;
+	g->fov = M_PI / 3;
+	num_rays = g->data_mlx.width;
 	i = 0;
-	find_player_start(data_game);
-	draw_background(data_game);
+	find_player_start(g);
+	draw_background(g);
 	while (i < num_rays)
 	{
-		ray_angle = data_game->player_pos.player_angle - fov / 2 + (fov * i
+		ray_angle = g->player_pos.player_angle - g->fov / 2 + (g->fov * i
 				/ num_rays);
-		ray_cast(data_game, ray_angle, i);
+		ray_cast(g, ray_angle, i);
 		i++;
 	}
-	mlx_put_image_to_window(data_game->data_mlx.mlx_ptr,
-		data_game->data_mlx.window_ptr, data_game->data_pixel.img_ptr, 0, 0);
+	mlx_put_image_to_window(g->data_mlx.mlx_ptr,
+		g->data_mlx.window_ptr, g->data_pixel.img_ptr, 0, 0);
 	return (0);
 }

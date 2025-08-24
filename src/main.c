@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 15:22:50 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/24 11:58:46 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ int	init_mlx(t_data_game **data_game)
 			&(*data_game)->data_pixel.endian);
 	if (!(*data_game)->data_pixel.addr)
 		return (1);
+	return (0);
+}
+
+int	init_mlx_texture(t_data_game **data_game)
+{
+	(*data_game)->wall_texture.img_ptr = mlx_xpm_file_to_image((*data_game)->data_mlx.mlx_ptr,
+		"textures/red_brick.xpm", &(*data_game)->wall_texture.width, &(*data_game)->wall_texture.height);
+	(*data_game)->wall_texture.addr = mlx_get_data_addr((*data_game)->wall_texture.img_ptr,
+			&(*data_game)->wall_texture.bits_per_pixel,
+			&(*data_game)->wall_texture.line_length,
+			&(*data_game)->wall_texture.endian);
 	return (0);
 }
 
@@ -75,6 +86,8 @@ int	init_game(int argc, char **argv, t_data_game **data_game)
 	if (init_map_and_flags(argc, argv, data_game) != 0)
 		return (1);
 	if (init_mlx(data_game) != 0)
+		return (1);
+	if (init_mlx_texture(data_game) != 0)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:09:04 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 15:22:41 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/24 12:01:37 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,76 @@ void	draw_background(t_data_game *data_game)
 	}
 }
 
-int	put_wall_segement(t_data_game *data_game, int i, float ray_angle)
-{
-	int		y;
-	float	vx;
-	float	vy;
-	float	dist;
-	int		wall_height;
-	int		draw_start;
-	int		draw_end;
-	float	proj_plane;
+// int put_wall_segement(t_data_game *g, int x, float perpWallDist, int hit_side)
+// {
+//     // FOV en radians (ex: 60° => M_PI/3)
+//     float fov = g->fov; 
+//     float proj_plane = (g->data_mlx.width * 0.5f) / tanf(fov * 0.5f);
 
-	vx = data_game->ray_data.ray_x - (data_game->player_pos.player_pos_x
-			* data_game->tile_size);
-	vy = data_game->ray_data.ray_y - (data_game->player_pos.player_pos_y
-			* data_game->tile_size);
-	dist = sqrtf(pow(vx, 2) + pow(vy, 2));
-	dist = dist * cos(ray_angle - data_game->player_pos.player_angle);
-	proj_plane = (data_game->data_mlx.height / 2) / tanf((60 * (M_PI / 180))
-			/ 2);
-	wall_height = (data_game->tile_size * proj_plane) / dist;
-	draw_start = (data_game->data_mlx.height / 2) - (wall_height / 2);
-	draw_end = (data_game->data_mlx.height / 2) + (wall_height / 2);
-	y = draw_start;
-	while (y < draw_end)
-	{
-		my_mlx_pixel_put(&data_game->data_pixel, i, y, 0xFF0000);
-		y++;
-	}
-	return (0);
+//     // hauteur du mur en pixels
+//     int wall_height = (int)((proj_plane) / perpWallDist);
+
+//     int draw_start = (g->data_mlx.height - wall_height) / 2;
+//     int draw_end   = draw_start + wall_height;
+//     if (draw_start < 0) draw_start = 0;
+//     if (draw_end > g->data_mlx.height) draw_end = g->data_mlx.height;
+
+//     // ombrage simple selon le côté
+//     int shade = (hit_side == 0) ? 0xAA : 0xFF;
+//     int color = (shade << 16); // rouge
+
+//     for (int y = draw_start; y < draw_end; ++y)
+//         my_mlx_pixel_put(&g->data_pixel, x, y, color);
+
+//     return 0;
+// }
+
+static inline unsigned int get_texel(t_wall_texture *tex, int x, int y)
+{
+    char *p = tex->addr + y * tex->line_length + x * (tex->bits_per_pixel / 8);
+    return *(unsigned int *)p; // MLX (42) stocke en BGRA/ARGB selon OS, ça fonctionne pour peindre
+}
+
+int put_wall_segement(t_data_game *g, int x, float perpWallDist, int hit_side)
+{
+    // Plan de projection basé sur FOV horizontal
+    float proj_plane = (g->data_mlx.width * 0.5f) / tanf(g->fov * 0.5f);
+
+    // Hauteur de la bande projetée
+    int wall_height = (int)(proj_plane / perpWallDist);
+    int draw_start = (g->data_mlx.height - wall_height) / 2;
+    int draw_end   = draw_start + wall_height - 1;
+    if (draw_start < 0) draw_start = 0;
+    if (draw_end >= g->data_mlx.height) draw_end = g->data_mlx.height - 1;
+
+    // --- position du hit sur le mur (fraction 0..1)
+    float wallX;
+    if (hit_side == 0)
+        wallX = g->player_pos.player_pos_y + perpWallDist * g->ray_data.ray_dir_y;
+    else
+        wallX = g->player_pos.player_pos_x + perpWallDist * g->ray_data.ray_dir_x;
+    wallX -= floorf(wallX);
+
+    // colonne de texture
+    int texX = (int)(wallX * (float)g->wall_texture.width);
+    if ((hit_side == 0 && g->ray_data.ray_dir_x > 0) ||
+        (hit_side == 1 && g->ray_data.ray_dir_y < 0))
+        texX = g->wall_texture.width - texX - 1;
+
+    // pas vertical dans la texture
+    float step = (float)g->wall_texture.height / (float)wall_height;
+    float texPos = (draw_start - (g->data_mlx.height / 2 - wall_height / 2)) * step;
+
+    for (int y = draw_start; y <= draw_end; ++y)
+    {
+        int texY = (int)texPos;
+        if (texY < 0) texY = 0;
+        if (texY >= g->wall_texture.height) texY = g->wall_texture.height - 1;
+
+        unsigned int color = get_texel(&g->wall_texture, texX, texY);
+        my_mlx_pixel_put(&g->data_pixel, x, y, color);
+
+        texPos += step;
+    }
+    return 0;
 }
