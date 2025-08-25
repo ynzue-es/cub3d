@@ -20,7 +20,9 @@ FILES = ft_strlen \
 		ft_isdigit \
 		ft_strndup \
 		ft_str_trim_nl \
-		line_digit
+		line_digit \
+		ft_itoa \
+		ft_strcat
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addprefix $(OBJDIR)/, $(FILES:=.o))

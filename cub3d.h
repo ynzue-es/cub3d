@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/24 11:46:35 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/25 14:26:40 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,14 @@ int					check_convert(int convert);
 int					check_split(char **split);
 int					check_digit(char *str);
 int					init_map(char *file, t_data_game *data_game);
+
 /*
  * init
  */
 
 int					init_data_game(t_data_game *data_game);
 int					init_flag(t_flag *flag);
+int	init_mlx_texture(t_data_game **data_game);
 
 /*
  * game_view

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 13:18:12 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 15:22:34 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/25 10:02:57 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ void	exit_game(void)
 
 int	key_code(int key, t_data_game *data_game)
 {
-	if (key == 122)
+	if (key == 119)
 		move_forward(data_game, 0.5);
 	else if (key == 115)
 		move_forward(data_game, -0.5);
 	else if (key == 100)
 		rotate_player(data_game, 0.1);
-	else if (key == 113)
+	else if (key == 97)
 		rotate_player(data_game, -0.1);
 	else if (key == 65307)
 		exit_game();
 	game_view(data_game);
-	// printf("key code = %d\n", key);
+	 printf("key code = %d\n", key);
 	return (0);
 }

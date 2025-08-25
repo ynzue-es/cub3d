@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/24 11:58:46 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/25 14:26:17 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	init_mlx(t_data_game **data_game)
 
 int	init_mlx_texture(t_data_game **data_game)
 {
+	printf("%s\n",(*data_game)->all_wall[0].texure_file);
 	(*data_game)->wall_texture.img_ptr = mlx_xpm_file_to_image((*data_game)->data_mlx.mlx_ptr,
 		"textures/red_brick.xpm", &(*data_game)->wall_texture.width, &(*data_game)->wall_texture.height);
 	(*data_game)->wall_texture.addr = mlx_get_data_addr((*data_game)->wall_texture.img_ptr,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_display.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:09:04 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/24 12:01:37 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/25 13:51:32 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,77 @@ void	my_mlx_pixel_put(t_data_pixel *data_pixel, int x, int y, int color)
 			* (data_pixel->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
+int hex_char_to_int(char c)
+{
+    if (c >= '0' && c <= '9')
+        return (c - '0');
+    if (c >= 'a' && c <= 'f')
+        return (c - 'a' + 10);
+    if (c >= 'A' && c <= 'F')
+        return (c - 'A' + 10);
+    return (0);
+}
 
+int hex_to_int(char *hex_str)
+{
+    int result = 0;
+    int i = 0;
+    
+    while (hex_str[i])
+    {
+        result = result * 16 + hex_char_to_int(hex_str[i]);
+        i++;
+    }
+    return (result);
+}
+
+char *switch_hex(int n)
+{
+    char *hex;
+    char *base = "0123456789abcdef";
+    hex = malloc(100);
+    int i;
+    //hex[0] = '0';
+    //hex[1] = 'x';
+    i = 0;
+    while(n > 0)
+    {
+        hex[i] = (base[n % 16]);
+       n = n / 16;
+       i++;
+    }
+    hex[i] = '\0';
+    
+    return (hex);
+}
+int	switch_tab_int(t_data_game *data_game, int flag_ceil_floor)
+{
+	char	*str;
+	char	*str1;
+	char	*str2;
+	char	*new;
+    int result;
+
+    
+	if (flag_ceil_floor == 0)
+	{
+		str = switch_hex(data_game->ceil_floor.ceil[0]);
+		str1 = switch_hex(data_game->ceil_floor.ceil[1]);
+		str2 = switch_hex(data_game->ceil_floor.ceil[2]);
+	}
+	else
+	{
+		str = switch_hex(data_game->ceil_floor.floor[0]);
+		str1 = switch_hex(data_game->ceil_floor.floor[1]);
+		str2 = switch_hex(data_game->ceil_floor.floor[2]);
+	}
+	new = ft_strcat(str, str1);
+	new = ft_strcat(new, str2);
+    
+    result = hex_to_int(new);
+    //printf("%d\n",result);
+	return (result);
+}
 void	draw_background(t_data_game *data_game)
 {
 	int	y;
@@ -30,12 +100,13 @@ void	draw_background(t_data_game *data_game)
 	int	color;
 
 	y = 0;
+    
 	while (y < data_game->data_mlx.height)
 	{
 		if (y < (data_game->data_mlx.height / 2))
-			color = 0x87CEEB;
+			color = switch_tab_int(data_game,0);
 		else
-			color = 0x228B22;
+			color = switch_tab_int(data_game,1);
 		x = 0;
 		while (x < data_game->data_mlx.width)
 		{
@@ -68,7 +139,7 @@ void	draw_background(t_data_game *data_game)
 //         my_mlx_pixel_put(&g->data_pixel, x, y, color);
 
 //     return 0;
-// }
+//}
 
 static inline unsigned int get_texel(t_wall_texture *tex, int x, int y)
 {

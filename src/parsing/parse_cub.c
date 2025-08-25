@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 11:45:59 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 11:56:25 by yannis           ###   ########.fr       */
+/*   Updated: 2025/08/25 14:26:36 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	add_wall(char *line, t_data_game *data_game, t_flag *flag)
 			return (-1);
 		}
 		data_game->all_wall[0].texure_file = spl[1];
+		printf("data = %s\n",data_game->all_wall[0].texure_file);
 		flag->north_flag++;
 		data_game->count_walls++;
 	}
@@ -176,4 +177,5 @@ int	check_file(char *file, t_data_game *data_game, t_flag *flag)
 	if (data_game->count_walls != 4)
 		return (-1);
 	return (0);
+	
 }
