@@ -1,10 +1,10 @@
-NO textures/matrix.xpm
-SO textures/matrix.xpm
-WE textures/matrix.xpm
-EA textures/matrix.xpm
+NO textures/red_brick.xpm
+EA textures/red_brick.xpm
+SO textures/red_brick.xpm
+WE textures/red_brick.xpm
 
-F 0,0,0
-C 0,0,0
+F 255,255,255
+C 153,255,255
 
 111111111111111111111
 101000001000000000001
