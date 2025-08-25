@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/25 10:08:47 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/25 15:27:48 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ray_cast(t_data_game *g, float ray_angle, int i)
 			break;
 	}
 	
-	// fish eye
+	//fish eye
 	if (g->ray_data.hit_side == 0)
 		perpWallDist = (g->ray_data.map_x - g->player_pos.player_pos_x + (1 - g->ray_data.stepX) * 0.5f) / g->ray_data.ray_dir_x;
 	else

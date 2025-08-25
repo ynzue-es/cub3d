@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/25 14:26:40 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/25 14:34:27 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int					check_ext(char *str, char *extension);
  * parsing
  */
 int					check_flag(t_flag *flag);
-int					check_file(char *file, t_data_game *data_game,
+int					check_file(char *file, t_data_game **data_game,
 						t_flag *flag);
 int					add_tab_ceil_floor(char *line, int *ceil_floor);
 int					check_convert(int convert);
@@ -143,7 +143,6 @@ int					init_map(char *file, t_data_game *data_game);
 
 int					init_data_game(t_data_game *data_game);
 int					init_flag(t_flag *flag);
-int	init_mlx_texture(t_data_game **data_game);
 
 /*
  * game_view

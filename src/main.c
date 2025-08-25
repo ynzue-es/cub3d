@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/25 14:26:17 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/25 15:12:51 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	init_mlx(t_data_game **data_game)
 
 int	init_mlx_texture(t_data_game **data_game)
 {
-	printf("%s\n",(*data_game)->all_wall[0].texure_file);
+	
 	(*data_game)->wall_texture.img_ptr = mlx_xpm_file_to_image((*data_game)->data_mlx.mlx_ptr,
-		"textures/red_brick.xpm", &(*data_game)->wall_texture.width, &(*data_game)->wall_texture.height);
+		(*data_game)->all_wall[0].texure_file, &(*data_game)->wall_texture.width, &(*data_game)->wall_texture.height);
 	(*data_game)->wall_texture.addr = mlx_get_data_addr((*data_game)->wall_texture.img_ptr,
 			&(*data_game)->wall_texture.bits_per_pixel,
 			&(*data_game)->wall_texture.line_length,
@@ -65,7 +65,7 @@ static int	init_map_and_flags(int argc, char **argv, t_data_game **data_game)
 				2), 1);
 	init_flag(&(*data_game)->flag);
 	init_data_game(*data_game);
-	if (check_file(argv[1], *data_game, &(*data_game)->flag) == -1)
+	if (check_file(argv[1], data_game, &(*data_game)->flag) == -1)
 	{
 		ft_putendl_fd("Error", 2);
 		free(*data_game);

@@ -6,72 +6,76 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 11:45:59 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/25 14:26:36 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/25 15:12:27 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-static int	add_wall(char *line, t_data_game *data_game, t_flag *flag)
+static int	add_wall(char *line, t_data_game **data_game, t_flag *flag)
 {
 	char	**spl;
-
+	
 	spl = ft_split(line, ' ');
 	if (!spl)
 		return (-1);
 	if (ft_strncmp(spl[0], "NO", 2) == 0 && ft_strlen(spl[0]) == 2)
 	{
-		data_game->all_wall[0].direction = spl[0];
+		(*data_game)->all_wall[0].direction = spl[0];
 		if (check_ext(spl[1], ".xpm") == -1)
 		{
 			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
 			free_split(spl);
 			return (-1);
 		}
-		data_game->all_wall[0].texure_file = spl[1];
-		printf("data = %s\n",data_game->all_wall[0].texure_file);
+		
+		(*data_game)->all_wall[0].texure_file = ft_strndup(spl[1],ft_strlen(spl[1]));
+		printf("data = %s\n",(*data_game)->all_wall[0].texure_file);
 		flag->north_flag++;
-		data_game->count_walls++;
+		(*data_game)->count_walls++;
 	}
 	else if (ft_strncmp(spl[0], "SO", 2) == 0 && ft_strlen(spl[0]) == 2)
 	{
-		data_game->all_wall[1].direction = spl[0];
+		(*data_game)->all_wall[1].direction = spl[0];
 		if (check_ext(spl[1], ".xpm") == -1)
 		{
 			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
 			free_split(spl);
 			return (-1);
 		}
-		data_game->all_wall[1].texure_file = spl[1];
+		(*data_game)->all_wall[1].texure_file = spl[1];
 		flag->south_flag++;
-		data_game->count_walls++;
+		(*data_game)->count_walls++;
 	}
 	else if (ft_strncmp(spl[0], "WE", 2) == 0 && ft_strlen(spl[0]) == 2)
 	{
-		data_game->all_wall[2].direction = spl[0];
+		(*data_game)->all_wall[2].direction = spl[0];
 		if (check_ext(spl[1], ".xpm") == -1)
 		{
 			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
 			free_split(spl);
 			return (-1);
 		}
-		data_game->all_wall[2].texure_file = spl[1];
+		(*data_game)->all_wall[2].texure_file = spl[1];
 		flag->west_flag++;
-		data_game->count_walls++;
+		(*data_game)->count_walls++;
 	}
 	else if (ft_strncmp(spl[0], "EA", 2) == 0 && ft_strlen(spl[0]) == 2)
 	{
-		data_game->all_wall[3].direction = spl[0];
+		(*data_game)->all_wall[3].direction = spl[0];
 		if (check_ext(spl[1], ".xpm") == -1)
 		{
 			ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
 			free_split(spl);
 			return (-1);
 		}
-		data_game->all_wall[3].texure_file = spl[1];
+		(*data_game)->all_wall[3].texure_file = spl[1];
 		flag->east_flag++;
-		data_game->count_walls++;
+		(*data_game)->count_walls++;
 	}
+	else
+		return (0);
+
 	free_split(spl);
 	return (0);
 }
@@ -92,7 +96,7 @@ int	check_digit(char *str)
 	return (0);
 }
 
-static int	add_color(char *line, t_data_game *data_game, t_flag *flag)
+static int	add_color(char *line, t_data_game **data_game, t_flag *flag)
 {
 	char	**spl;
 	char	letter;
@@ -113,20 +117,20 @@ static int	add_color(char *line, t_data_game *data_game, t_flag *flag)
 		return (-1);
 	if (letter == 'F')
 	{
-		if (add_tab_ceil_floor(line + i + 1, data_game->ceil_floor.floor) == -1)
+		if (add_tab_ceil_floor(line + i + 1, (*data_game)->ceil_floor.floor) == -1)
 			return (-1);
 		flag->floor_flag++;
 	}
 	else if (letter == 'C')
 	{
-		if (add_tab_ceil_floor(line + i + 1, data_game->ceil_floor.ceil) == -1)
+		if (add_tab_ceil_floor(line + i + 1, (*data_game)->ceil_floor.ceil) == -1)
 			return (-1);
 		flag->ceil_flag++;
 	}
 	free_split(spl);
 	return (0);
 }
-static int	walls_ceil_floor(char *line, t_data_game *data_game, t_flag *flag)
+static int	walls_ceil_floor(char *line, t_data_game **data_game, t_flag *flag)
 {
 	if (add_wall(line, data_game, flag) == -1)
 		return (-1);
@@ -135,7 +139,7 @@ static int	walls_ceil_floor(char *line, t_data_game *data_game, t_flag *flag)
 	return (0);
 }
 
-int	check_file(char *file, t_data_game *data_game, t_flag *flag)
+int	check_file(char *file, t_data_game **data_game, t_flag *flag)
 {
 	int		fd;
 	char	*line;
@@ -152,7 +156,7 @@ int	check_file(char *file, t_data_game *data_game, t_flag *flag)
 		{
 			return (-1);
 		}
-		if (data_game->map_data.height == 0 && check_flag(flag) == 1
+		if ((*data_game)->map_data.height == 0 && check_flag(flag) == 1
 			&& line[0] == '\n')
 		{
 			free(line);
@@ -160,7 +164,7 @@ int	check_file(char *file, t_data_game *data_game, t_flag *flag)
 			continue ;
 		}
 		if (check_flag(flag) == 1)
-			data_game->map_data.height++;
+			(*data_game)->map_data.height++;
 		if (line[0] != '\n')
 			line = str_trim_nl(line);
 		if (walls_ceil_floor(line, data_game, flag) == -1)
@@ -174,7 +178,7 @@ int	check_file(char *file, t_data_game *data_game, t_flag *flag)
 	close(fd);
 	if (check_flag(flag) == -1)
 		return (-1);
-	if (data_game->count_walls != 4)
+	if ((*data_game)->count_walls != 4)
 		return (-1);
 	return (0);
 	
