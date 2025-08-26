@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:09:04 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/25 13:51:32 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/08/26 10:08:51 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ char *switch_hex(int n)
     char *base = "0123456789abcdef";
     hex = malloc(100);
     int i;
-    //hex[0] = '0';
-    //hex[1] = 'x';
+  
     i = 0;
     while(n > 0)
     {
@@ -117,29 +116,30 @@ void	draw_background(t_data_game *data_game)
 	}
 }
 
-// int put_wall_segement(t_data_game *g, int x, float perpWallDist, int hit_side)
+// int put_wall_segement(t_data_game *g, int x, float perpWallDist, int hit_side, float ray_angle)
 // {
-//     // FOV en radians (ex: 60° => M_PI/3)
 //     float fov = g->fov; 
 //     float proj_plane = (g->data_mlx.width * 0.5f) / tanf(fov * 0.5f);
-
-//     // hauteur du mur en pixels
-//     int wall_height = (int)((proj_plane) / perpWallDist);
-
+    
+//     float angle_diff = ray_angle - g->player_pos.player_angle;
+//     float corrected_dist = perpWallDist * cosf(angle_diff);
+    
+//     int wall_height = (int)(proj_plane / corrected_dist);
 //     int draw_start = (g->data_mlx.height - wall_height) / 2;
 //     int draw_end   = draw_start + wall_height;
 //     if (draw_start < 0) draw_start = 0;
 //     if (draw_end > g->data_mlx.height) draw_end = g->data_mlx.height;
-
-//     // ombrage simple selon le côté
 //     int shade = (hit_side == 0) ? 0xAA : 0xFF;
-//     int color = (shade << 16); // rouge
+//     int color = (shade << 16);
+//     int y = draw_start;
 
-//     for (int y = draw_start; y < draw_end; ++y)
+//     while (y < draw_end)
+//     {
 //         my_mlx_pixel_put(&g->data_pixel, x, y, color);
-
+//         y++;
+//     }
 //     return 0;
-//}
+// }
 
 static inline unsigned int get_texel(t_wall_texture *tex, int x, int y)
 {
@@ -147,13 +147,16 @@ static inline unsigned int get_texel(t_wall_texture *tex, int x, int y)
     return *(unsigned int *)p; // MLX (42) stocke en BGRA/ARGB selon OS, ça fonctionne pour peindre
 }
 
-int put_wall_segement(t_data_game *g, int x, float perpWallDist, int hit_side)
+int put_wall_segement(t_data_game *g, int x, float perpWallDist, int hit_side, float ray_angle)
 {
     // Plan de projection basé sur FOV horizontal
     float proj_plane = (g->data_mlx.width * 0.5f) / tanf(g->fov * 0.5f);
 
+    float angle_diff = ray_angle - g->player_pos.player_angle;
+    float corrected_dist = perpWallDist * cosf(angle_diff);
+
     // Hauteur de la bande projetée
-    int wall_height = (int)(proj_plane / perpWallDist);
+    int wall_height = (int)(proj_plane / corrected_dist);
     int draw_start = (g->data_mlx.height - wall_height) / 2;
     int draw_end   = draw_start + wall_height - 1;
     if (draw_start < 0) draw_start = 0;

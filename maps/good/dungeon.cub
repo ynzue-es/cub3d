@@ -1,10 +1,10 @@
 F 76,76,76
 C 92,99,99
 
-NO textures/simonkraft/cobblestone.xpm
-SO textures/simonkraft/cobblestone_01.xpm
-WE textures/simonkraft/mossy_cobblestone1.xpm
-EA textures/simonkraft/cobblestone_02.xpm
+NO textures/red_brick.xpm
+EA textures/red_brick.xpm
+SO textures/red_brick.xpm
+WE textures/red_brick.xpm
 
 111111111111111111111111111111111
 100000000000000000000000000000111
