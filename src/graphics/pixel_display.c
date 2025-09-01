@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_display.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:09:04 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/26 10:08:51 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/01 08:55:36 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	draw_background(t_data_game *data_game)
 	}
 }
 
-// int put_wall_segement(t_data_game *g, int x, float perpWallDist, int hit_side, float ray_angle)
+// int put_wall_segment(t_data_game *g, int x, float perpWallDist, int hit_side, float ray_angle)
 // {
 //     float fov = g->fov; 
 //     float proj_plane = (g->data_mlx.width * 0.5f) / tanf(fov * 0.5f);
@@ -147,48 +147,57 @@ static inline unsigned int get_texel(t_wall_texture *tex, int x, int y)
     return *(unsigned int *)p; // MLX (42) stocke en BGRA/ARGB selon OS, ça fonctionne pour peindre
 }
 
-int put_wall_segement(t_data_game *g, int x, float perpWallDist, int hit_side, float ray_angle)
-{
-    // Plan de projection basé sur FOV horizontal
-    float proj_plane = (g->data_mlx.width * 0.5f) / tanf(g->fov * 0.5f);
+enum { TEX_NORTH, TEX_EAST, TEX_SOUTH, TEX_WEST };
 
+static inline int pick_tex_id(int hit_side, int step_x, int step_y)
+{
+    if (hit_side == 0)            // paroi verticale (x-side)
+        return (step_x > 0) ? TEX_WEST : TEX_EAST;
+    else                          // paroi horizontale (y-side)
+        return (step_y > 0) ? TEX_NORTH : TEX_SOUTH;
+}
+
+int put_wall_segment(t_data_game *g, int x, float perpWallDist, int hit_side, float ray_angle)
+{
+    // Plan de projection et correction fish-eye
+    float proj_plane = (g->data_mlx.width * 0.5f) / tanf(g->fov * 0.5f);
     float angle_diff = ray_angle - g->player_pos.player_angle;
     float corrected_dist = perpWallDist * cosf(angle_diff);
 
-    // Hauteur de la bande projetée
-    int wall_height = (int)(proj_plane / corrected_dist);
+    // Hauteur et bornes de dessin
+    int wall_height = (int)(proj_plane / fmaxf(corrected_dist, 0.0001f));
     int draw_start = (g->data_mlx.height - wall_height) / 2;
     int draw_end   = draw_start + wall_height - 1;
     if (draw_start < 0) draw_start = 0;
     if (draw_end >= g->data_mlx.height) draw_end = g->data_mlx.height - 1;
 
-    // --- position du hit sur le mur (fraction 0..1)
-    float wallX;
-    if (hit_side == 0)
-        wallX = g->player_pos.player_pos_y + perpWallDist * g->ray_data.ray_dir_y;
-    else
-        wallX = g->player_pos.player_pos_x + perpWallDist * g->ray_data.ray_dir_x;
+    // Coordonnée d'impact fractionnelle le long de la paroi
+    float wallX = (hit_side == 0)
+        ? g->player_pos.player_pos_y + perpWallDist * g->ray_data.ray_dir_y
+        : g->player_pos.player_pos_x + perpWallDist * g->ray_data.ray_dir_x;
     wallX -= floorf(wallX);
 
-    // colonne de texture
-    int texX = (int)(wallX * (float)g->wall_texture.width);
-    if ((hit_side == 0 && g->ray_data.ray_dir_x > 0) ||
-        (hit_side == 1 && g->ray_data.ray_dir_y < 0))
-        texX = g->wall_texture.width - texX - 1;
+    // Choix de la texture selon la face frappée
+    int tex_id = pick_tex_id(hit_side, g->ray_data.stepX, g->ray_data.stepY);
+    t_wall_texture *tex = &g->wall_texture[tex_id];
 
-    // pas vertical dans la texture
-    float step = (float)g->wall_texture.height / (float)wall_height;
+    // Colonne de tex (miroir selon la face pour garder l'orientation)
+    int texX = (int)(wallX * (float)tex->width);
+    if ((hit_side == 0 && g->ray_data.ray_dir_x > 0) ||   // paroi verticale vue depuis l'ouest
+        (hit_side == 1 && g->ray_data.ray_dir_y < 0))     // paroi horizontale vue depuis le sud
+        texX = tex->width - texX - 1;
+
+    // Pas vertical dans la texture
+    float step = (float)tex->height / (float)wall_height;
     float texPos = (draw_start - (g->data_mlx.height / 2 - wall_height / 2)) * step;
 
-    for (int y = draw_start; y <= draw_end; ++y)
-    {
+    for (int y = draw_start; y <= draw_end; ++y) {
         int texY = (int)texPos;
         if (texY < 0) texY = 0;
-        if (texY >= g->wall_texture.height) texY = g->wall_texture.height - 1;
+        if (texY >= tex->height) texY = tex->height - 1;
 
-        unsigned int color = get_texel(&g->wall_texture, texX, texY);
+        unsigned int color = get_texel(tex, texX, texY);
         my_mlx_pixel_put(&g->data_pixel, x, y, color);
-
         texPos += step;
     }
     return 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/26 10:03:56 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/01 08:54:59 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ray_cast(t_data_game *g, float ray_angle, int i)
 	else
 		perpWallDist = (g->ray_data.map_y - g->player_pos.player_pos_y + (1 - g->ray_data.stepY) * 0.5f) / g->ray_data.ray_dir_y;
 	
-	put_wall_segement(g, i, perpWallDist, g->ray_data.hit_side, ray_angle);
+	put_wall_segment(g, i, perpWallDist, g->ray_data.hit_side, ray_angle);
 }
 
 

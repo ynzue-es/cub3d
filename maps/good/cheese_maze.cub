@@ -1,7 +1,7 @@
 NO textures/red_brick.xpm
-EA textures/red_brick.xpm
-SO textures/red_brick.xpm
-WE textures/red_brick.xpm
+EA textures/blue_wall.xpm
+SO textures/oner.xpm
+WE textures/faker.xpm
 
 F 255,255,255
 C 153,255,255

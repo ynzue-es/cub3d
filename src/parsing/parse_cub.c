@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 11:45:59 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/25 15:12:27 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/01 08:58:49 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	add_wall(char *line, t_data_game **data_game, t_flag *flag)
 		}
 		
 		(*data_game)->all_wall[0].texure_file = ft_strndup(spl[1],ft_strlen(spl[1]));
-		printf("data = %s\n",(*data_game)->all_wall[0].texure_file);
 		flag->north_flag++;
 		(*data_game)->count_walls++;
 	}
@@ -43,7 +42,7 @@ static int	add_wall(char *line, t_data_game **data_game, t_flag *flag)
 			free_split(spl);
 			return (-1);
 		}
-		(*data_game)->all_wall[1].texure_file = spl[1];
+		(*data_game)->all_wall[1].texure_file = ft_strndup(spl[1],ft_strlen(spl[1]));
 		flag->south_flag++;
 		(*data_game)->count_walls++;
 	}
@@ -56,7 +55,7 @@ static int	add_wall(char *line, t_data_game **data_game, t_flag *flag)
 			free_split(spl);
 			return (-1);
 		}
-		(*data_game)->all_wall[2].texure_file = spl[1];
+		(*data_game)->all_wall[2].texure_file = ft_strndup(spl[1],ft_strlen(spl[1]));
 		flag->west_flag++;
 		(*data_game)->count_walls++;
 	}
@@ -69,13 +68,12 @@ static int	add_wall(char *line, t_data_game **data_game, t_flag *flag)
 			free_split(spl);
 			return (-1);
 		}
-		(*data_game)->all_wall[3].texure_file = spl[1];
+		(*data_game)->all_wall[3].texure_file = ft_strndup(spl[1],ft_strlen(spl[1]));
 		flag->east_flag++;
 		(*data_game)->count_walls++;
 	}
 	else
 		return (0);
-
 	free_split(spl);
 	return (0);
 }
