@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:09:04 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/01 08:55:36 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/03 10:34:40 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	switch_tab_int(t_data_game *data_game, int flag_ceil_floor)
 	char	*new;
     int result;
 
-    
 	if (flag_ceil_floor == 0)
 	{
 		str = switch_hex(data_game->ceil_floor.ceil[0]);
@@ -87,9 +86,7 @@ int	switch_tab_int(t_data_game *data_game, int flag_ceil_floor)
 	}
 	new = ft_strcat(str, str1);
 	new = ft_strcat(new, str2);
-    
     result = hex_to_int(new);
-    //printf("%d\n",result);
 	return (result);
 }
 void	draw_background(t_data_game *data_game)
@@ -116,45 +113,30 @@ void	draw_background(t_data_game *data_game)
 	}
 }
 
-// int put_wall_segment(t_data_game *g, int x, float perpWallDist, int hit_side, float ray_angle)
-// {
-//     float fov = g->fov; 
-//     float proj_plane = (g->data_mlx.width * 0.5f) / tanf(fov * 0.5f);
-    
-//     float angle_diff = ray_angle - g->player_pos.player_angle;
-//     float corrected_dist = perpWallDist * cosf(angle_diff);
-    
-//     int wall_height = (int)(proj_plane / corrected_dist);
-//     int draw_start = (g->data_mlx.height - wall_height) / 2;
-//     int draw_end   = draw_start + wall_height;
-//     if (draw_start < 0) draw_start = 0;
-//     if (draw_end > g->data_mlx.height) draw_end = g->data_mlx.height;
-//     int shade = (hit_side == 0) ? 0xAA : 0xFF;
-//     int color = (shade << 16);
-//     int y = draw_start;
-
-//     while (y < draw_end)
-//     {
-//         my_mlx_pixel_put(&g->data_pixel, x, y, color);
-//         y++;
-//     }
-//     return 0;
-// }
-
 static inline unsigned int get_texel(t_wall_texture *tex, int x, int y)
 {
     char *p = tex->addr + y * tex->line_length + x * (tex->bits_per_pixel / 8);
-    return *(unsigned int *)p; // MLX (42) stocke en BGRA/ARGB selon OS, ça fonctionne pour peindre
+    return *(unsigned int *)p;
 }
 
-enum { TEX_NORTH, TEX_EAST, TEX_SOUTH, TEX_WEST };
+enum { TEX_NORTH, TEX_SOUTH, TEX_WEST, TEX_EAST};
 
 static inline int pick_tex_id(int hit_side, int step_x, int step_y)
 {
-    if (hit_side == 0)            // paroi verticale (x-side)
-        return (step_x > 0) ? TEX_WEST : TEX_EAST;
-    else                          // paroi horizontale (y-side)
-        return (step_y > 0) ? TEX_NORTH : TEX_SOUTH;
+    if (hit_side == 0)
+    {
+        if (step_x > 0)
+            return(TEX_EAST);
+        else 
+            return(TEX_WEST);
+    }
+    else
+    {
+        if (step_y > 0) 
+            return(TEX_SOUTH);
+        else 
+            return(TEX_NORTH);
+    }
 }
 
 int put_wall_segment(t_data_game *g, int x, float perpWallDist, int hit_side, float ray_angle)

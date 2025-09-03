@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/01 08:54:59 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/03 10:32:16 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,3 +159,8 @@ int					key_code(int key, t_data_game *data);
  */
 int put_wall_segment(t_data_game *g, int x, float perpWallDist, int hit_side, float ray_angle);
 void				draw_background(t_data_game *data_game);
+
+/*
+ * ray_casting
+ */
+void	ray_cast(t_data_game *g, float ray_angle, int i);
