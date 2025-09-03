@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/03 10:30:18 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/03 13:07:35 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	game_view(t_data_game *g)
 		ray_cast(g, ray_angle, i);
 		i++;
 	}
-	mlx_put_image_to_window(g->data_mlx.mlx_ptr,
-		g->data_mlx.window_ptr, g->data_pixel.img_ptr, 0, 0);
+	mlx_put_image_to_window(g->data_mlx.mlx_ptr, g->data_mlx.window_ptr,
+		g->data_pixel.img_ptr, 0, 0);
 	return (0);
 }
