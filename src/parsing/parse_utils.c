@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:33:32 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/04 13:01:33 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/04 14:10:03 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,23 @@ int	check_convert(int convert)
 	return (0);
 }
 
+int	size_clear_str(char *line)
+{
+	int	i;
+	int	count;
+
+	// revoir count
+	count = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == ' ')
+			i++;
+		count++;
+		i++;
+	}
+	return (count);
+}
 char	*clear_str(char *line)
 {
 	char	*new_str;
@@ -52,39 +69,23 @@ char	*clear_str(char *line)
 	new_str = NULL;
 	j = 0;
 	i = 0;
-	while (line[i])
-	{
-		if (line[i] == ' ')
-			i++;
-		count++;
-		i++;
-	}
-	i = 0;
+	count = size_clear_str(line);
 	new_str = malloc(count + 1);
+	if (!new_str)
+		return (NULL);
 	while (line[i])
 	{
-		if (line[i] == ' ')
-		{
+		while (line[i] && line[i] == ' ')
 			i++;
-			continue ;
-		}
 		new_str[j++] = line[i++];
 	}
 	new_str[j] = '\0';
 	return (new_str);
 }
-int	add_tab_ceil_floor(char *line, int *ceil_floor)
+int	check_all_convert(int *ceil_floor, char **new_split)
 {
-	char	**new_split;
-	char	*new_str;
-	int		convert;
+	int	convert;
 
-	new_str = clear_str(line);
-	new_split = ft_split(new_str, ',');
-	if (!new_split)
-		return (-1);
-	if (check_split(new_split) == -1)
-		return (free_split(new_split), -1);
 	convert = ft_atoi(new_split[0]);
 	if (check_convert(convert) == -1)
 		return (free_split(new_split), -1);
@@ -97,6 +98,22 @@ int	add_tab_ceil_floor(char *line, int *ceil_floor)
 	if (check_convert(convert) == -1)
 		return (free_split(new_split), -1);
 	ceil_floor[2] = convert;
+	return (0);
+}
+int	add_tab_ceil_floor(char *line, int *ceil_floor)
+{
+	char	**new_split;
+	char	*new_str;
+
+	new_str = clear_str(line);
+	if (!new_str)
+		return (-1);
+	new_split = ft_split(new_str, ',');
+	if (!new_split)
+		return (-1);
+	if (check_split(new_split) == -1)
+		return (free_split(new_split), -1);
+	check_all_convert(ceil_floor, new_split);
 	free_split(new_split);
 	free(new_str);
 	return (0);

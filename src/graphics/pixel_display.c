@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_display.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:09:04 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/03 13:07:50 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/04 14:37:37 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,13 +185,13 @@ int	put_wall_segment(t_data_game *g, int x, float perpWallDist, int hit_side,
 	wallX -= floorf(wallX);
 	// Choix de la texture selon la face frappée
 	tex_id = pick_tex_id(hit_side, g->ray_data.stepX, g->ray_data.stepY);
-	tex = &g->wall_texture[tex_id];
+	tex = &g->wall_t[tex_id];
 	// Colonne de tex (miroir selon la face pour garder l'orientation)
 	texX = (int)(wallX * (float)tex->width);
 	if ((hit_side == 0 && g->ray_data.ray_dir_x > 0) ||
 		// paroi verticale vue depuis l'ouest
-		(hit_side == 1 && g->ray_data.ray_dir_y < 0))  
-			// paroi horizontale vue depuis le sud
+		(hit_side == 1 && g->ray_data.ray_dir_y < 0))
+		// paroi horizontale vue depuis le sud
 		texX = tex->width - texX - 1;
 	// Pas vertical dans la texture
 	step = (float)tex->height / (float)wall_height;

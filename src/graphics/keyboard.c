@@ -6,40 +6,42 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 13:18:12 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/26 10:24:13 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/04 14:04:59 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-void move_forward(t_data_game *data, float speed)
+void	move_forward(t_data_game *data, float speed)
 {
-    float new_x;
-    float new_y;
+	float	new_x;
+	float	new_y;
 
-    new_x = data->player_pos.player_pos_x + cosf(data->player_pos.player_angle) * speed;
-    new_y = data->player_pos.player_pos_y + sinf(data->player_pos.player_angle) * speed;
-
-    if (data->map_data.map[(int)new_y][(int)new_x] != '1')
-    {
-        data->player_pos.player_pos_x = new_x;
-        data->player_pos.player_pos_y = new_y;
-    }
+	new_x = data->player_pos.player_pos_x + cosf(data->player_pos.player_angle)
+		* speed;
+	new_y = data->player_pos.player_pos_y + sinf(data->player_pos.player_angle)
+		* speed;
+	if (data->map_data.map[(int)new_y][(int)new_x] != '1')
+	{
+		data->player_pos.player_pos_x = new_x;
+		data->player_pos.player_pos_y = new_y;
+	}
 }
 
-void move_side(t_data_game *data, float speed)
+void	move_side(t_data_game *data, float speed)
 {
-    float new_x;
-    float new_y;
+	float	new_x;
+	float	new_y;
 
-    new_x = data->player_pos.player_pos_x - sinf(data->player_pos.player_angle) * speed;
-    new_y = data->player_pos.player_pos_y + cosf(data->player_pos.player_angle) * speed;
-
-    if (data->map_data.map[(int)new_y][(int)new_x] != '1')
-    {
-        data->player_pos.player_pos_x = new_x;
-        data->player_pos.player_pos_y = new_y;
-    }
+	new_x = data->player_pos.player_pos_x - sinf(data->player_pos.player_angle)
+		* speed;
+	new_y = data->player_pos.player_pos_y + cosf(data->player_pos.player_angle)
+		* speed;
+	if (data->map_data.map[(int)new_y][(int)new_x] != '1')
+	{
+		data->player_pos.player_pos_x = new_x;
+		data->player_pos.player_pos_y = new_y;
+	}
 }
 
 void	rotate_player(t_data_game *data, float angle)

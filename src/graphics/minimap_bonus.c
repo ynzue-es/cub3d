@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:14:16 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/04 10:29:52 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/04 14:09:47 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	ray_minimap(t_data_game *data, float ray_angle,
 
 void	display_minimap(t_data_game *data_game, t_data_pixel *data_pixel)
 {
-	int i;
-	int j;
-	int x;
-	int y;
+	int	i;
+	int	j;
+	int	x;
+	int	y;
 
 	j = 0;
 	i = 0;
