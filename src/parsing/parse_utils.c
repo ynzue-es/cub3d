@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:33:32 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/23 15:23:05 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/04 13:01:33 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ char	*clear_str(char *line)
 			i++;
 			continue ;
 		}
-		new_str[j] = line[i];
-		i++;
-		j++;
+		new_str[j++] = line[i++];
 	}
 	new_str[j] = '\0';
 	return (new_str);

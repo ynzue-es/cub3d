@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 09:58:17 by engiusep          #+#    #+#             */
-/*   Updated: 2025/08/23 15:23:01 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/04 10:55:21 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,34 @@ int	check_char(char c, t_data_game *data_game)
 		return (-1);
 	return (0);
 }
+
+int	check_space(char **map, int i, int j, int len)
+{
+	if (j < len - 1 && (map[i][j + 1] != '1' && map[i][j + 1] != ' '))
+		return (-1);
+	if (j > 0 && map[i][j - 1] && (map[i][j - 1] != '1' && map[i][j
+			- 1] != ' '))
+		return (-1);
+	if ((map[i + 1][j] != '1' && map[i + 1][j] != ' '))
+		return (-1);
+	if (i > 0 && (map[i - 1][j] != '1' && map[i - 1][j] != ' '))
+		return (-1);
+	return (0);
+}
+
+int	check_vue_side(char **map, int i, int j, int len)
+{
+	if (i == 0 && (map[i][j] == '0' || map[i][j] == 'S' || map[i][j] == 'N'
+			|| map[i][j] == 'W' || map[i][j] == 'E'))
+		return (-1);
+	if (map[i][len - 1] == '0' || map[i][len - 1] == 'S' || map[i][len
+		- 1] == 'N' || map[i][len - 1] == 'W' || map[i][len - 1] == 'E')
+		return (-1);
+	if (j == 0 && (map[i][j] == '0' || map[i][j] == 'S' || map[i][j] == 'N'
+			|| map[i][j] == 'W' || map[i][j] == 'E'))
+		return (-1);
+	return (0);
+}
 int	check_zero(int i, int j, char **map)
 {
 	int	len;
@@ -31,26 +59,12 @@ int	check_zero(int i, int j, char **map)
 	if (map[i][j] == '0' || map[i][j] == 'S' || map[i][j] == 'N'
 		|| map[i][j] == 'W' || map[i][j] == 'E')
 	{
-		if (i == 0 && (map[i][j] == '0' || map[i][j] == 'S' || map[i][j] == 'N'
-				|| map[i][j] == 'W' || map[i][j] == 'E'))
-			return (-1);
-		if (map[i][len - 1] == '0' || map[i][len - 1] == 'S' || map[i][len
-			- 1] == 'N' || map[i][len - 1] == 'W' || map[i][len - 1] == 'E')
-			return (-1);
-		if (j == 0 && (map[i][j] == '0' || map[i][j] == 'S' || map[i][j] == 'N'
-				|| map[i][j] == 'W' || map[i][j] == 'E'))
+		if (check_vue_side(map, i, j, len) == -1)
 			return (-1);
 	}
 	if (map[i][j] == ' ')
 	{
-		if (j < len - 1 && (map[i][j + 1] != '1' && map[i][j + 1] != ' '))
-			return (-1);
-		if (j > 0 && map[i][j - 1] && (map[i][j - 1] != '1' && map[i][j
-				- 1] != ' '))
-			return (-1);
-		if ((map[i + 1][j] != '1' && map[i + 1][j] != ' '))
-			return (-1);
-		if (i > 0 && (map[i - 1][j] != '1' && map[i - 1][j] != ' '))
+		if (check_space(map, i, j, len) == -1)
 			return (-1);
 	}
 	if (map[i + 1] == NULL)
@@ -89,9 +103,8 @@ int	check_map(t_data_game *data_game)
 			return (-1);
 		while (map[i][j])
 		{
-			if (check_char(map[i][j], data_game) == -1)
-				return (-1);
-			if (check_zero(i, j, map) == -1)
+			if (check_char(map[i][j], data_game) == -1 || check_zero(i, j,
+					map) == -1)
 				return (-1);
 			j++;
 		}

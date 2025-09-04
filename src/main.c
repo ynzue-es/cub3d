@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/01 08:56:28 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/04 13:00:29 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,14 @@ int	init_mlx_texture(t_data_game **data_game, int i)
 {
 	(*data_game)->wall_texture[i].img_ptr = mlx_xpm_file_to_image((*data_game)->data_mlx.mlx_ptr,
 		(*data_game)->all_wall[i].texure_file, &(*data_game)->wall_texture[i].width, &(*data_game)->wall_texture[i].height);
+	if(!(*data_game)->wall_texture[i].img_ptr)
+		return (1);
 	(*data_game)->wall_texture[i].addr = mlx_get_data_addr((*data_game)->wall_texture[i].img_ptr,
 			&(*data_game)->wall_texture[i].bits_per_pixel,
 			&(*data_game)->wall_texture[i].line_length,
 			&(*data_game)->wall_texture[i].endian);
+	if(!(*data_game)->wall_texture[i].addr)
+		return (1);
 	return (0);
 }
 
@@ -64,7 +68,7 @@ static int	init_map_and_flags(int argc, char **argv, t_data_game **data_game)
 				2), 1);
 	init_flag(&(*data_game)->flag);
 	init_data_game(*data_game);
-	if (check_file(argv[1], data_game, &(*data_game)->flag) == -1)
+	if (check_file(argv[1], data_game) == -1)
 	{
 		ft_putendl_fd("Error", 2);
 		free(*data_game);
@@ -108,6 +112,7 @@ int	main(int argc, char **argv)
 	mlx_hook(data_game->data_mlx.window_ptr, KeyPress, KeyPressMask, key_code,
 		data_game);
 	game_view(data_game);
+	//display_minimap(data_game,&data_game->data_pixel);
 	mlx_loop(data_game->data_mlx.mlx_ptr);
 	free_split(data_game->map_data.map);
 	free(data_game);

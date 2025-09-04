@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/03 10:32:16 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/04 12:55:04 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,7 @@ int					check_ext(char *str, char *extension);
  * parsing
  */
 int					check_flag(t_flag *flag);
-int					check_file(char *file, t_data_game **data_game,
-						t_flag *flag);
+int					check_file(char *file, t_data_game **data_game);
 int					add_tab_ceil_floor(char *line, int *ceil_floor);
 int					check_convert(int convert);
 int					check_split(char **split);
@@ -164,3 +163,8 @@ void				draw_background(t_data_game *data_game);
  * ray_casting
  */
 void	ray_cast(t_data_game *g, float ray_angle, int i);
+/*
+ * display_minimap
+ */
+void	display_minimap(t_data_game *data_game, t_data_pixel *data_pixel);
+void	my_mlx_pixel_put(t_data_pixel *data_pixel, int x, int y, int color);
