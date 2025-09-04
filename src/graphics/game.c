@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/03 13:07:35 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/04 10:27:53 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,27 @@ int	find_player_start(t_data_game *g)
 				g->player_pos.player_pos_x = y;
 				g->player_pos.player_pos_y = x;
 				g->player_pos.player_angle = -M_PI / 2;
+				g->map_data.map[x][y] = '0';
+			}
+			if (g->map_data.map[x][y] == 'S')
+			{
+				g->player_pos.player_pos_x = y;
+				g->player_pos.player_pos_y = x;
+				g->player_pos.player_angle = M_PI / 2;
+				g->map_data.map[x][y] = '0';
+			}
+			if (g->map_data.map[x][y] == 'W')
+			{
+				g->player_pos.player_pos_x = y;
+				g->player_pos.player_pos_y = x;
+				g->player_pos.player_angle = 0;
+				g->map_data.map[x][y] = '0';
+			}
+			if (g->map_data.map[x][y] == 'E')
+			{
+				g->player_pos.player_pos_x = y;
+				g->player_pos.player_pos_y = x;
+				g->player_pos.player_angle = M_PI;
 				g->map_data.map[x][y] = '0';
 			}
 			y++;
