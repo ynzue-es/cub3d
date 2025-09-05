@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file_tex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:16:53 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/04 14:38:23 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/05 10:38:49 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	file_texture_ea(t_data_game **data_game, char **spl)
 	(*data_game)->count_walls++;
 	return (0);
 }
+
 int	add_wall(char *line, t_data_game **data_game)
 {
 	char	**spl;

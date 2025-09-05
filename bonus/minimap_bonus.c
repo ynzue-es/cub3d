@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:14:16 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/04 14:09:47 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/05 10:22:21 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-void	ray_minimap(t_data_game *data, float ray_angle,
-		t_data_pixel *data_pixel)
+void	ray_minimap(t_data_game *data, t_data_pixel *data_pixel)
 {
 	data->ray_data.ray_x = data->player_pos.player_pos_x * 16 + 8;
 	data->ray_data.ray_y = data->player_pos.player_pos_y * 16 + 8;

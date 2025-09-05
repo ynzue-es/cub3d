@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/04 12:55:04 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/05 10:42:25 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,18 @@
 #include <X11/keysym.h>
 #include <math.h>
 #include <stdio.h>
+
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
+
+enum
+{
+	TEX_NORTH,
+	TEX_SOUTH,
+	TEX_WEST,
+	TEX_EAST
+};
 
 typedef struct s_wall
 {
@@ -35,6 +44,13 @@ typedef struct s_data_pixel
 	int				endian;
 }					t_data_pixel;
 
+typedef struct s_wall_draw
+{
+	int				wall_height;
+	int				draw_start;
+	int				draw_end;
+}					t_wall_draw;
+
 typedef struct s_wall_texture
 {
 	void			*img_ptr;
@@ -45,6 +61,15 @@ typedef struct s_wall_texture
 	int				width;
 	int				height;
 }					t_wall_texture;
+
+typedef struct s_tex_coords
+{
+	int				tex_id;
+	t_wall_texture	*tex;
+	int				tex_x;
+	float			step;
+	float			tex_pos_0;
+}					t_tex_coords;
 
 typedef struct s_ceil_floor_colors
 {
@@ -102,6 +127,7 @@ typedef struct s_ray_data
 	int				hit_side;
 	int				stepX;
 	int				stepY;
+	float			ray_angle;
 }					t_ray_data;
 
 typedef struct s_data_game
@@ -116,7 +142,7 @@ typedef struct s_data_game
 	t_data_pixel	data_pixel;
 	t_ray_data		ray_data;
 	int				tile_size;
-	t_wall_texture	wall_texture[4];
+	t_wall_texture	wall_t[4];
 	float			fov;
 }					t_data_game;
 
@@ -156,15 +182,34 @@ int					key_code(int key, t_data_game *data);
 /*
  * pixel_display
  */
-int put_wall_segment(t_data_game *g, int x, float perpWallDist, int hit_side, float ray_angle);
+int					put_wall_segment(t_data_game *g, int x, float perpWallDist,
+						int hit_side);
 void				draw_background(t_data_game *data_game);
 
 /*
  * ray_casting
  */
-void	ray_cast(t_data_game *g, float ray_angle, int i);
+void				ray_cast(t_data_game *g, int i);
 /*
  * display_minimap
  */
-void	display_minimap(t_data_game *data_game, t_data_pixel *data_pixel);
-void	my_mlx_pixel_put(t_data_pixel *data_pixel, int x, int y, int color);
+void				display_minimap(t_data_game *data_game,
+						t_data_pixel *data_pixel);
+void				my_mlx_pixel_put(t_data_pixel *data_pixel, int x, int y,
+						int color);
+int					add_wall(char *line, t_data_game **data_game);
+int					malloc_map(t_data_game *data_game);
+int					check_map(t_data_game *data_game);
+int					check_char(char c, t_data_game *data_game);
+int					check_zero(int i, int j, char **map);
+int					init_mlx(t_data_game **g);
+int					init_mlx_texture(t_data_game **g, int i);
+int					switch_tab_int(t_data_game *data_game, int flag_ceil_floor);
+float				hit_point_fraction(t_data_game *g, int hit_side,
+						float perpWallDist);
+void				draw_textured_column(t_data_game *g, int x, t_wall_draw *wd,
+						t_tex_coords *tc);
+float				projection_plane(t_data_game *g);
+int					pick_tex_id(int hit_side, int step_x, int step_y);
+int					size_clear_str(char *line);
+int					add_color(char *line, t_data_game **data_game);

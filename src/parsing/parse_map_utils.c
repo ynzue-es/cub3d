@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:26:05 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/04 14:31:16 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/05 10:33:59 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	check_view_side(char **map, int i, int j, int len)
 		return (-1);
 	return (0);
 }
+
 int	check_zero(int i, int j, char **map)
 {
 	int	len;

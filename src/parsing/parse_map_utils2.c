@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:27:31 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/04 14:27:41 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/05 10:33:39 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	clean_map(t_data_game *data_game)
 	}
 	data_game->map_data.map[i + 1] = NULL;
 }
+
 int	check_map(t_data_game *data_game)
 {
 	int		i;

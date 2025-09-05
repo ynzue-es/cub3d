@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/04 14:09:12 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/05 10:28:18 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	start_pos(float player_angle, t_data_game *g, int x, int y)
 	g->player_pos.player_angle = player_angle;
 	g->map_data.map[x][y] = '0';
 }
+
 int	find_player_start(t_data_game *g)
 {
 	int	x;
@@ -47,9 +48,8 @@ int	find_player_start(t_data_game *g)
 
 int	game_view(t_data_game *g)
 {
-	int		i;
-	int		num_rays;
-	float	ray_angle;
+	int	i;
+	int	num_rays;
 
 	g->fov = M_PI / 3;
 	num_rays = g->data_mlx.width;
@@ -58,9 +58,9 @@ int	game_view(t_data_game *g)
 	draw_background(g);
 	while (i < num_rays)
 	{
-		ray_angle = g->player_pos.player_angle - g->fov / 2 + (g->fov * i
-				/ num_rays);
-		ray_cast(g, ray_angle, i);
+		g->ray_data.ray_angle = g->player_pos.player_angle - g->fov / 2
+			+ (g->fov * i / num_rays);
+		ray_cast(g, i);
 		i++;
 	}
 	mlx_put_image_to_window(g->data_mlx.mlx_ptr, g->data_mlx.window_ptr,

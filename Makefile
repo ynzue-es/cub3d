@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+         #
+#    By: yannis <yannis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:04:02 by yannis            #+#    #+#              #
-#    Updated: 2025/09/04 10:36:55 by engiusep         ###   ########.fr        #
+#    Updated: 2025/09/05 10:40:46 by yannis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,17 @@ SRCS = 	main.c \
 		parsing/parse_cub.c \
 		parsing/parse_utils.c \
 		parsing/parse_map.c \
+		parsing/parse_map_utils.c \
+		parsing/parse_map_utils2.c \
+		parsing/parse_file_tex.c \
+		parsing/parse_checker.c \
+		parsing/parse_char.c \
 		graphics/game.c \
 		graphics/keyboard.c \
 		graphics/pixel_display.c \
 		graphics/ray_casting.c \
-		graphics/minimap_bonus.c 
+		graphics/color_pixel.c \
+		graphics/calc_pixel.c \
 
 SRCFILES = $(addprefix $(SRCDIR)/, $(SRCS))
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))

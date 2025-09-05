@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:19:50 by yannis            #+#    #+#             */
-/*   Updated: 2025/08/23 15:22:53 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/05 09:40:06 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,41 @@ int	init_flag(t_flag *flag)
 	flag->west_flag = 0;
 	flag->player_flag = 0;
 	flag->fisrt_pos_flag = 0;
+	return (0);
+}
+
+int	init_mlx(t_data_game **g)
+{
+	(*g)->data_mlx.mlx_ptr = mlx_init();
+	if (!(*g)->data_mlx.mlx_ptr)
+		return (1);
+	(*g)->data_mlx.window_ptr = mlx_new_window((*g)->data_mlx.mlx_ptr,
+			(*g)->data_mlx.width, (*g)->data_mlx.height, "cub3d");
+	if (!(*g)->data_mlx.window_ptr)
+		return (1);
+	(*g)->data_pixel.img_ptr = mlx_new_image((*g)->data_mlx.mlx_ptr,
+			(*g)->data_mlx.width, (*g)->data_mlx.height);
+	if (!(*g)->data_pixel.img_ptr)
+		return (1);
+	(*g)->data_pixel.addr = mlx_get_data_addr((*g)->data_pixel.img_ptr,
+			&(*g)->data_pixel.bits_per_pixel, &(*g)->data_pixel.line_length,
+			&(*g)->data_pixel.endian);
+	if (!(*g)->data_pixel.addr)
+		return (1);
+	return (0);
+}
+
+int	init_mlx_texture(t_data_game **g, int i)
+{
+	(*g)->wall_t[i].img_ptr = mlx_xpm_file_to_image((*g)->data_mlx.mlx_ptr,
+			(*g)->all_wall[i].texure_file, &(*g)->wall_t[i].width,
+			&(*g)->wall_t[i].height);
+	if (!(*g)->wall_t[i].img_ptr)
+		return (1);
+	(*g)->wall_t[i].addr = mlx_get_data_addr((*g)->wall_t[i].img_ptr,
+			&(*g)->wall_t[i].bits_per_pixel, &(*g)->wall_t[i].line_length,
+			&(*g)->wall_t[i].endian);
+	if (!(*g)->wall_t[i].addr)
+		return (1);
 	return (0);
 }

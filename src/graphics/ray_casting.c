@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 10:12:17 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/03 10:28:24 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/05 10:28:43 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ void	step_ray_y(t_data_game *g)
 	}
 }
 
-void	ray_cast(t_data_game *g, float ray_angle, int i)
+void	ray_cast(t_data_game *g, int i)
 {
-	float	perpWallDist;
+	float	perp_wall_dist;
 
 	g->ray_data.map_x = (int)g->player_pos.player_pos_x;
 	g->ray_data.map_y = (int)g->player_pos.player_pos_y;
-	g->ray_data.ray_dir_x = cos(ray_angle);
-	g->ray_data.ray_dir_y = sin(ray_angle);
+	g->ray_data.ray_dir_x = cos(g->ray_data.ray_angle);
+	g->ray_data.ray_dir_y = sin(g->ray_data.ray_angle);
 	g->ray_data.deltaDistX = fabs(1 / g->ray_data.ray_dir_x);
 	g->ray_data.deltaDistY = fabs(1 / g->ray_data.ray_dir_y);
 	step_ray_x(g);
@@ -79,10 +79,10 @@ void	ray_cast(t_data_game *g, float ray_angle, int i)
 			break ;
 	}
 	if (g->ray_data.hit_side == 0)
-		perpWallDist = (g->ray_data.map_x - g->player_pos.player_pos_x + (1
+		perp_wall_dist = (g->ray_data.map_x - g->player_pos.player_pos_x + (1
 					- g->ray_data.stepX) * 0.5f) / g->ray_data.ray_dir_x;
 	else
-		perpWallDist = (g->ray_data.map_y - g->player_pos.player_pos_y + (1
+		perp_wall_dist = (g->ray_data.map_y - g->player_pos.player_pos_y + (1
 					- g->ray_data.stepY) * 0.5f) / g->ray_data.ray_dir_y;
-	put_wall_segment(g, i, perpWallDist, g->ray_data.hit_side, ray_angle);
+	put_wall_segment(g, i, perp_wall_dist, g->ray_data.hit_side);
 }

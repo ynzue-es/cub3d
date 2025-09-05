@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 09:58:17 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/04 14:27:29 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/05 10:33:28 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
-
-
 
 int	process_map_line(char *line, t_data_game *data_game, int *i)
 {
