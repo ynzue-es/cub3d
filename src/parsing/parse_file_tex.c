@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:16:53 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/08 13:04:17 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:16:59 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,18 @@
 
 int	file_texture_no(t_data_game **data_game, char **spl)
 {
-	
+	if((*data_game)->count_walls == 4)
+		return (-1);
 	(*data_game)->all_wall[0].direction = spl[0];
 	if (check_ext(spl[1], ".xpm") == -1)
 	{
 		ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
-		free_split(spl);
 		return (-1);
-	
 	}
 	(*data_game)->all_wall[0].texture_file = ft_strndup(spl[1],
 			ft_strlen(spl[1]));
 	if(!(*data_game)->all_wall[0].texture_file)
-	{
-		free_split(spl);
 		return (-1);
-	}
 	(*data_game)->flag.north_flag++;
 	(*data_game)->count_walls++;
 	return (0);
@@ -37,21 +33,18 @@ int	file_texture_no(t_data_game **data_game, char **spl)
 
 int	file_texture_so(t_data_game **data_game, char **spl)
 {
-
+	if((*data_game)->count_walls == 4)
+		return (-1);
 	(*data_game)->all_wall[1].direction = spl[0];
 	if (check_ext(spl[1], ".xpm") == -1)
 	{
 		ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
-		free_split(spl);
 		return (-1);
 	}
 	(*data_game)->all_wall[1].texture_file = ft_strndup(spl[1],
 			ft_strlen(spl[1]));
 	if(!(*data_game)->all_wall[1].texture_file)
-	{
-		free_split(spl);
 		return (-1);
-	}
 	(*data_game)->flag.south_flag++;
 	(*data_game)->count_walls++;
 	return (0);
@@ -59,20 +52,18 @@ int	file_texture_so(t_data_game **data_game, char **spl)
 
 int	file_texture_we(t_data_game **data_game, char **spl)
 {
+	if((*data_game)->count_walls == 4)
+		return (-1);
 	(*data_game)->all_wall[2].direction = spl[0];
 	if (check_ext(spl[1], ".xpm") == -1)
 	{
 		ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
-		free_split(spl);
 		return (-1);
 	}
 	(*data_game)->all_wall[2].texture_file = ft_strndup(spl[1],
 			ft_strlen(spl[1]));
 	if(!(*data_game)->all_wall[2].texture_file)
-	{
-		free_split(spl);
 		return (-1);
-	}
 	(*data_game)->flag.west_flag++;
 	(*data_game)->count_walls++;
 	return (0);
@@ -80,20 +71,18 @@ int	file_texture_we(t_data_game **data_game, char **spl)
 
 int	file_texture_ea(t_data_game **data_game, char **spl)
 {
+	if((*data_game)->count_walls == 4)
+		return (-1);
 	(*data_game)->all_wall[3].direction = spl[0];
 	if (check_ext(spl[1], ".xpm") == -1)
 	{
 		ft_putendl_fd("Usage : ./cub3d filename.xpm", 2);
-		free_split(spl);
 		return (-1);
 	}
 	(*data_game)->all_wall[3].texture_file = ft_strndup(spl[1],
 			ft_strlen(spl[1]));
 	if(!(*data_game)->all_wall[3].texture_file)
-	{
-		free_split(spl);
 		return (-1);
-	}
 	(*data_game)->flag.east_flag++;
 	(*data_game)->count_walls++;
 	return (0);
