@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 13:18:12 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/04 14:04:59 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:44:32 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,15 @@ void	rotate_player(t_data_game *data, float angle)
 	data->player_pos.player_angle += angle;
 }
 
-void	exit_game(void)
+void	exit_game(t_data_game *g)
 {
+	free_split(g->map_data.map);
+	free_texture(g);
+	mlx_destroy_image(g->data_mlx.mlx_ptr, g->data_pixel.img_ptr);
+	mlx_destroy_window(g->data_mlx.mlx_ptr, g->data_mlx.window_ptr);
+	mlx_destroy_display(g->data_mlx.mlx_ptr);
+	free(g->data_mlx.mlx_ptr);
+	free(g);
 	exit(1);
 }
 
@@ -69,7 +76,7 @@ int	key_code(int key, t_data_game *data_game)
 	else if (key == 65361)
 		rotate_player(data_game, -0.1);
 	else if (key == 65307)
-		exit_game();
+		exit_game(data_game);
 	game_view(data_game);
 	return (0);
 }

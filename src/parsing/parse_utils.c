@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:33:32 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/05 10:35:38 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/08 09:55:25 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,16 @@ int	add_tab_ceil_floor(char *line, int *ceil_floor)
 		return (-1);
 	new_split = ft_split(new_str, ',');
 	if (!new_split)
+	{
+		free(new_str);
 		return (-1);
+	}
 	if (check_split(new_split) == -1)
-		return (free_split(new_split), -1);
+	{
+		free(new_str);
+		free_split(new_split);
+		return (-1);
+	}
 	check_all_convert(ceil_floor, new_split);
 	free_split(new_split);
 	free(new_str);

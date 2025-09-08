@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yannis <yannis@student.42.fr>              +#+  +:+       +#+         #
+#    By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:04:02 by yannis            #+#    #+#              #
-#    Updated: 2025/09/05 10:40:46 by yannis           ###   ########.fr        #
+#    Updated: 2025/09/08 13:11:34 by engiusep         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ LIBFT_FILES = ft_strlen.c \
 			ft_str_trim_nl.c \
 			get_next_line/get_next_line.c \
 			line_digit.c \
+			ft_calloc.c \
 			  
 LIBFT_SRCS = $(addprefix libft/, $(LIBFT_FILES))
 

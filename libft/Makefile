@@ -22,7 +22,8 @@ FILES = ft_strlen \
 		ft_str_trim_nl \
 		line_digit \
 		ft_itoa \
-		ft_strcat
+		ft_strcat \
+		ft_calloc \
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addprefix $(OBJDIR)/, $(FILES:=.o))

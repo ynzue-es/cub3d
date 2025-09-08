@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:19:50 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/05 09:40:06 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/08 13:12:44 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,6 @@
 
 int	init_data_game(t_data_game *data_game)
 {
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		data_game->all_wall[i].direction = NULL;
-		data_game->all_wall[i++].texure_file = NULL;
-	}
-	data_game->count_walls = 0;
-	i = 0;
-	while (i < 3)
-	{
-		data_game->ceil_floor.ceil[i] = 0;
-		data_game->ceil_floor.floor[i++] = 0;
-	}
-	data_game->map_data.height = 0;
-	data_game->map_data.width = 0;
 	data_game->data_mlx.height = 1090;
 	data_game->data_mlx.width = 2000;
 	data_game->tile_size = 16;
@@ -74,7 +57,7 @@ int	init_mlx(t_data_game **g)
 int	init_mlx_texture(t_data_game **g, int i)
 {
 	(*g)->wall_t[i].img_ptr = mlx_xpm_file_to_image((*g)->data_mlx.mlx_ptr,
-			(*g)->all_wall[i].texure_file, &(*g)->wall_t[i].width,
+			(*g)->all_wall[i].texture_file, &(*g)->wall_t[i].width,
 			&(*g)->wall_t[i].height);
 	if (!(*g)->wall_t[i].img_ptr)
 		return (1);

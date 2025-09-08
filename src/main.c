@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/05 09:54:37 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/08 13:12:04 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	init_structs(t_data_game **g)
 {
-	*g = malloc(sizeof(t_data_game));
+	*g = ft_calloc(1, sizeof(t_data_game));
 	if (!*g)
 		return (1);
 	return (0);
@@ -30,13 +30,15 @@ static int	init_map_and_flags(int argc, char **argv, t_data_game **g)
 	init_data_game(*g);
 	if (check_file(argv[1], g) == -1)
 	{
-		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Error file in parsing", 2);
+		free_texture(*g);
 		free(*g);
 		return (1);
 	}
 	if (init_map(argv[1], *g) == -1)
 	{
-		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Error file map", 2);
+		free_texture(*g);
 		free(*g);
 		return (1);
 	}
@@ -68,11 +70,11 @@ int	main(int argc, char **argv)
 	t_data_game	*g;
 
 	if (init_game(argc, argv, &g) != 0)
+	{
 		return (1);
+	}
 	mlx_hook(g->data_mlx.window_ptr, KeyPress, KeyPressMask, key_code, g);
 	game_view(g);
 	mlx_loop(g->data_mlx.mlx_ptr);
-	free_split(g->map_data.map);
-	free(g);
 	return (0);
 }

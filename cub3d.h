@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/05 10:42:25 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/08 13:04:04 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ enum
 typedef struct s_wall
 {
 	char			*direction;
-	char			*texure_file;
+	char			*texture_file;
 }					t_wall;
 
 typedef struct s_data_pixel
@@ -213,3 +213,5 @@ float				projection_plane(t_data_game *g);
 int					pick_tex_id(int hit_side, int step_x, int step_y);
 int					size_clear_str(char *line);
 int					add_color(char *line, t_data_game **data_game);
+
+int free_texture(t_data_game *g);

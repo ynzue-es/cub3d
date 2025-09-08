@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 09:58:17 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/05 10:33:28 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/08 12:32:24 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int	process_map_line(char *line, t_data_game *data_game, int *i)
 	if (!data_game->map_data.map[*i])
 	{
 		free_split(data_game->map_data.map);
-		return (free(line), free(temp), -1);
+		free(line);
+		free(temp);
+		return (-1);
 	}
 	free(temp);
 	(*i)++;
