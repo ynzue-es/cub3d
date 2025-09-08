@@ -6,20 +6,23 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/08 13:04:04 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/08 15:08:46 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "mlx/mlx.h"
-#include <X11/X.h>
-#include <X11/keysym.h>
-#include <math.h>
-#include <stdio.h>
+#ifndef CUB3D_H
+# define CUB3D_H
 
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-#endif
+# include "libft/libft.h"
+# include "mlx/mlx.h"
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include <math.h>
+# include <stdio.h>
+
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 
 enum
 {
@@ -120,13 +123,13 @@ typedef struct s_ray_data
 	int				map_y;
 	float			ray_dir_x;
 	float			ray_dir_y;
-	float			deltaDistX;
-	float			deltaDistY;
-	float			sideDistX;
-	float			sideDistY;
+	float			delta_dist_x;
+	float			delta_dist_y;
+	float			side_dist_x;
+	float			side_dist_y;
 	int				hit_side;
-	int				stepX;
-	int				stepY;
+	int				step_x;
+	int				step_y;
 	float			ray_angle;
 }					t_ray_data;
 
@@ -214,4 +217,9 @@ int					pick_tex_id(int hit_side, int step_x, int step_y);
 int					size_clear_str(char *line);
 int					add_color(char *line, t_data_game **data_game);
 
-int free_texture(t_data_game *g);
+int					free_texture(t_data_game *g);
+void				convet_hex(char **str, int flag_ceil_floor,
+						t_data_game *data_game);
+char				*switch_hex(int n);
+
+#endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_display.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:09:04 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/05 10:30:45 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/08 15:06:31 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_tex_coords	compute_texture_coords(t_data_game *g, int hit_side,
 	float			wall_x;
 
 	wall_x = hit_point_fraction(g, hit_side, perpWallDist);
-	t.tex_id = pick_tex_id(hit_side, g->ray_data.stepX, g->ray_data.stepY);
+	t.tex_id = pick_tex_id(hit_side, g->ray_data.step_x, g->ray_data.step_y);
 	t.tex = &g->wall_t[t.tex_id];
 	t.tex_x = (int)(wall_x * (float)t.tex->width);
 	if ((hit_side == 0 && g->ray_data.ray_dir_x > 0) || (hit_side == 1

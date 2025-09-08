@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:05:42 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/08 11:00:52 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:42:03 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ int	hex_to_int(char *hex_str)
 	}
 	return (result);
 }
-int size_hex(int n)
+
+int	size_hex(int n)
 {
-	int size;
+	int	size;
 
 	size = 0;
 	while (n > 0)
@@ -47,16 +48,16 @@ int size_hex(int n)
 		n = n / 16;
 		size++;
 	}
-	
 	size++;
 	return (size);
 }
+
 char	*switch_hex(int n)
 {
 	char	*hex;
 	char	*base;
 	int		i;
-	int size;
+	int		size;
 
 	base = "0123456789abcdef";
 	size = size_hex(200);
@@ -74,33 +75,20 @@ char	*switch_hex(int n)
 
 int	switch_tab_int(t_data_game *data_game, int flag_ceil_floor)
 {
-	char	*str;
-	char	*str1;
-	char	*str2;
+	char	*str[3];
 	char	*new;
-	char 	*new2;
+	char	*new2;
 	int		result;
+	int		i;
 
-	if (flag_ceil_floor == 0)
-	{
-		str = switch_hex(data_game->ceil_floor.ceil[0]);
-		str1 = switch_hex(data_game->ceil_floor.ceil[1]);
-		str2 = switch_hex(data_game->ceil_floor.ceil[2]);
-	}
-	else
-	{
-		str = switch_hex(data_game->ceil_floor.floor[0]);
-		str1 = switch_hex(data_game->ceil_floor.floor[1]);
-		str2 = switch_hex(data_game->ceil_floor.floor[2]);
-	}
-
-	new = ft_strjoin(str,str1);
-	new2 = ft_strjoin(new,str2);
+	i = 0;
+	convet_hex(str, flag_ceil_floor, data_game);
+	new = ft_strjoin(str[0], str[1]);
+	new2 = ft_strjoin(new, str[2]);
 	result = hex_to_int(new2);
+	while (i < 3)
+		free(str[i++]);
 	free(new);
 	free(new2);
-	free(str);
-	free(str1);
-	free(str2);
 	return (result);
 }

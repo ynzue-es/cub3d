@@ -6,12 +6,11 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:42:29 by ynzue-es          #+#    #+#             */
-/*   Updated: 2025/07/24 10:44:21 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:48:40 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

@@ -6,7 +6,7 @@
 #    By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:04:02 by yannis            #+#    #+#              #
-#    Updated: 2025/09/08 13:11:34 by engiusep         ###   ########.fr        #
+#    Updated: 2025/09/08 14:27:22 by engiusep         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS = 	main.c \
 		graphics/ray_casting.c \
 		graphics/color_pixel.c \
 		graphics/calc_pixel.c \
+		graphics/color_pixel_utils.c \
 
 SRCFILES = $(addprefix $(SRCDIR)/, $(SRCS))
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))

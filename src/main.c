@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/08 14:06:26 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/08 15:01:58 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ static int	init_structs(t_data_game **g)
 	return (0);
 }
 
-static int	init_map_and_flags(int argc, char **argv, t_data_game **g)
+static int	init_map_and_flags(char **argv, t_data_game **g)
 {
-	if (argc != 2)
-		return (free(*g), ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
-	if (check_ext(argv[1], ".cub") == -1)
-		return (free(*g), ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
 	init_flag(&(*g)->flag);
 	init_data_game(*g);
 	if (check_file(argv[1], g) == -1)
@@ -36,21 +32,21 @@ static int	init_map_and_flags(int argc, char **argv, t_data_game **g)
 	if (init_map(argv[1], *g) == -1)
 	{
 		ft_putendl_fd("Error file map", 2);
-		if((*g)->map_data.map)
+		if ((*g)->map_data.map)
 			free_split((*g)->map_data.map);
 		return (1);
 	}
 	return (0);
 }
 
-int	init_game(int argc, char **argv, t_data_game **g)
+int	init_game(char **argv, t_data_game **g)
 {
 	int	i;
 
 	i = 0;
 	if (init_structs(g) != 0)
 		return (1);
-	if (init_map_and_flags(argc, argv, g) != 0)
+	if (init_map_and_flags(argv, g) != 0)
 		return (1);
 	if (init_mlx(g) != 0)
 		return (1);
@@ -61,7 +57,8 @@ int	init_game(int argc, char **argv, t_data_game **g)
 			ft_putendl_fd("Error texture file", 2);
 			free_split((*g)->map_data.map);
 			mlx_destroy_image((*g)->data_mlx.mlx_ptr, (*g)->data_pixel.img_ptr);
-			mlx_destroy_window((*g)->data_mlx.mlx_ptr, (*g)->data_mlx.window_ptr);
+			mlx_destroy_window((*g)->data_mlx.mlx_ptr,
+				(*g)->data_mlx.window_ptr);
 			mlx_destroy_display((*g)->data_mlx.mlx_ptr);
 			free((*g)->data_mlx.mlx_ptr);
 			return (1);
@@ -75,7 +72,11 @@ int	main(int argc, char **argv)
 {
 	t_data_game	*g;
 
-	if (init_game(argc, argv, &g) != 0)
+	if (argc != 2)
+		return (ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
+	if (check_ext(argv[1], ".cub") == -1)
+		return (ft_putendl_fd("Usage : ./cub3d filename.cub", 2), 1);
+	if (init_game(argv, &g) != 0)
 	{
 		free_texture(g);
 		free(g);

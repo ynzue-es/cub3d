@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:25:19 by ynzue-es          #+#    #+#             */
-/*   Updated: 2025/08/04 10:49:36 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:48:15 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	ft_count_word(char const *s, char sep)
 	count = 0;
 	while (s[i])
 	{
-		if (((s[i] != sep && s[i] != '\t') && (s[i + 1] == sep || s[i + 1] == '\t'))
-			|| ((s[i] != sep && s[i] != '\t') && s[i + 1] == '\0'))
+		if (((s[i] != sep && s[i] != '\t')
+				&& (s[i + 1] == sep || s[i + 1] == '\t'))
+			|| ((s[i] != sep && s[i] != '\t')
+				&& s[i + 1] == '\0'))
 			count++;
 		i++;
 	}

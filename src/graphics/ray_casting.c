@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 10:12:17 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/05 10:28:43 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/08 15:08:26 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	nearest_side(t_data_game *g)
 {
-	if (g->ray_data.sideDistX < g->ray_data.sideDistY)
+	if (g->ray_data.side_dist_x < g->ray_data.side_dist_y)
 	{
-		g->ray_data.sideDistX += g->ray_data.deltaDistX;
-		g->ray_data.map_x += g->ray_data.stepX;
+		g->ray_data.side_dist_x += g->ray_data.delta_dist_x;
+		g->ray_data.map_x += g->ray_data.step_x;
 		g->ray_data.hit_side = 0;
 	}
 	else
 	{
-		g->ray_data.sideDistY += g->ray_data.deltaDistY;
-		g->ray_data.map_y += g->ray_data.stepY;
+		g->ray_data.side_dist_y += g->ray_data.delta_dist_y;
+		g->ray_data.map_y += g->ray_data.step_y;
 		g->ray_data.hit_side = 1;
 	}
 }
@@ -32,15 +32,15 @@ void	step_ray_x(t_data_game *g)
 {
 	if (g->ray_data.ray_dir_x < 0)
 	{
-		g->ray_data.stepX = -1;
-		g->ray_data.sideDistX = (g->player_pos.player_pos_x - g->ray_data.map_x)
-			* g->ray_data.deltaDistX;
+		g->ray_data.step_x = -1;
+		g->ray_data.side_dist_x = (g->player_pos.player_pos_x
+				- g->ray_data.map_x) * g->ray_data.delta_dist_x;
 	}
 	else
 	{
-		g->ray_data.stepX = 1;
-		g->ray_data.sideDistX = (g->ray_data.map_x + 1
-				- g->player_pos.player_pos_x) * g->ray_data.deltaDistX;
+		g->ray_data.step_x = 1;
+		g->ray_data.side_dist_x = (g->ray_data.map_x + 1
+				- g->player_pos.player_pos_x) * g->ray_data.delta_dist_x;
 	}
 }
 
@@ -48,15 +48,15 @@ void	step_ray_y(t_data_game *g)
 {
 	if (g->ray_data.ray_dir_y < 0)
 	{
-		g->ray_data.stepY = -1;
-		g->ray_data.sideDistY = (g->player_pos.player_pos_y - g->ray_data.map_y)
-			* g->ray_data.deltaDistY;
+		g->ray_data.step_y = -1;
+		g->ray_data.side_dist_y = (g->player_pos.player_pos_y
+				- g->ray_data.map_y) * g->ray_data.delta_dist_y;
 	}
 	else
 	{
-		g->ray_data.stepY = 1;
-		g->ray_data.sideDistY = (g->ray_data.map_y + 1
-				- g->player_pos.player_pos_y) * g->ray_data.deltaDistY;
+		g->ray_data.step_y = 1;
+		g->ray_data.side_dist_y = (g->ray_data.map_y + 1
+				- g->player_pos.player_pos_y) * g->ray_data.delta_dist_y;
 	}
 }
 
@@ -68,8 +68,8 @@ void	ray_cast(t_data_game *g, int i)
 	g->ray_data.map_y = (int)g->player_pos.player_pos_y;
 	g->ray_data.ray_dir_x = cos(g->ray_data.ray_angle);
 	g->ray_data.ray_dir_y = sin(g->ray_data.ray_angle);
-	g->ray_data.deltaDistX = fabs(1 / g->ray_data.ray_dir_x);
-	g->ray_data.deltaDistY = fabs(1 / g->ray_data.ray_dir_y);
+	g->ray_data.delta_dist_x = fabs(1 / g->ray_data.ray_dir_x);
+	g->ray_data.delta_dist_y = fabs(1 / g->ray_data.ray_dir_y);
 	step_ray_x(g);
 	step_ray_y(g);
 	while (1)
@@ -80,9 +80,9 @@ void	ray_cast(t_data_game *g, int i)
 	}
 	if (g->ray_data.hit_side == 0)
 		perp_wall_dist = (g->ray_data.map_x - g->player_pos.player_pos_x + (1
-					- g->ray_data.stepX) * 0.5f) / g->ray_data.ray_dir_x;
+					- g->ray_data.step_x) * 0.5f) / g->ray_data.ray_dir_x;
 	else
 		perp_wall_dist = (g->ray_data.map_y - g->player_pos.player_pos_y + (1
-					- g->ray_data.stepY) * 0.5f) / g->ray_data.ray_dir_y;
+					- g->ray_data.step_y) * 0.5f) / g->ray_data.ray_dir_y;
 	put_wall_segment(g, i, perp_wall_dist, g->ray_data.hit_side);
 }

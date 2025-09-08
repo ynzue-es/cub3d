@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_checker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:35:40 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/05 10:38:35 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/08 14:42:11 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,15 @@ int	size_clear_str(char *line)
 	int	i;
 	int	count;
 
-	// revoir count
 	count = 0;
 	i = 0;
 	while (line[i])
 	{
 		if (line[i] == ' ')
+		{
 			i++;
+			continue ;
+		}
 		count++;
 		i++;
 	}

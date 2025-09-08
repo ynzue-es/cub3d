@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:41:47 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/08 14:15:15 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:19:52 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,25 @@ int	check_ext(char *str, char *extension)
 		return (-1);
 }
 
-int free_texture(t_data_game *g)
+int	free_texture(t_data_game *g)
 {
-    int j;
+	int	j;
 
 	j = 0;
-    while (j < 4)
-    {		
+	while (j < 4)
+	{
 		if (g->all_wall[j].texture_file)
-        {
+		{
 			free(g->all_wall[j].texture_file);
-            g->all_wall[j].texture_file = NULL;
-        }
+			g->all_wall[j].texture_file = NULL;
+		}
 		if (g->wall_t[j].img_ptr)
 		{
 			mlx_destroy_image(g->data_mlx.mlx_ptr, g->wall_t[j].img_ptr);
 			g->wall_t[j].img_ptr = NULL;
-			g->wall_t[j].addr = NULL; 
+			g->wall_t[j].addr = NULL;
 		}
-		
-        j++;
-    }
-    return (0);
+		j++;
+	}
+	return (0);
 }
-

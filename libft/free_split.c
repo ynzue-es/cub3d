@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   free_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:41:38 by yannis            #+#    #+#             */
-/*   Updated: 2025/07/25 09:13:56 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/08 14:42:51 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
-int free_split(char **spl)
+int	free_split(char **spl)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (spl[i])
-        free(spl[i++]);
-    free(spl);
-    return (0);
+	i = 0;
+	while (spl[i])
+		free(spl[i++]);
+	free(spl);
+	return (0);
 }
