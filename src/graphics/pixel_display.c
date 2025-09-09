@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:09:04 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/09 10:03:46 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:34:45 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	my_mlx_pixel_put(t_data_pixel *data_pixel, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_background(t_data_game *data_game)
+int	draw_background(t_data_game *data_game)
 {
 	int	y;
 	int	x;
@@ -32,10 +32,9 @@ void	draw_background(t_data_game *data_game)
 	y = 0;
 	while (y < data_game->data_mlx.height)
 	{
-		if (y < (data_game->data_mlx.height / 2))
-			color = switch_tab_int(data_game, 0);
-		else
-			color = switch_tab_int(data_game, 1);
+		color = switch_tab_int(data_game, y > (data_game->data_mlx.height / 2));
+		if (color == -1)
+			return (-1);
 		x = 0;
 		while (x < data_game->data_mlx.width)
 		{
@@ -44,6 +43,7 @@ void	draw_background(t_data_game *data_game)
 		}
 		y++;
 	}
+	return (0);
 }
 
 /* Calcule les coordonnées de texture pour la colonne :

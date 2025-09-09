@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:05:42 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/08 14:42:03 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:47:18 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ char	*switch_hex(int n)
 	int		size;
 
 	base = "0123456789abcdef";
-	size = size_hex(200);
+	size = size_hex(n);
 	hex = malloc(size);
+	if (!hex)
+		return (NULL);
 	i = 0;
 	while (n > 0)
 	{
@@ -82,9 +84,17 @@ int	switch_tab_int(t_data_game *data_game, int flag_ceil_floor)
 	int		i;
 
 	i = 0;
-	convet_hex(str, flag_ceil_floor, data_game);
+	if (convert_hex(str, flag_ceil_floor, data_game) == -1)
+		return (free_tab(str), -1);
 	new = ft_strjoin(str[0], str[1]);
+	if (!new)
+		return (-1);
 	new2 = ft_strjoin(new, str[2]);
+	if (!new2)
+	{
+		free(new);
+		return (-1);
+	}
 	result = hex_to_int(new2);
 	while (i < 3)
 		free(str[i++]);

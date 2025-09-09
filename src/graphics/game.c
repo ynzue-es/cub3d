@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:21 by engiusep          #+#    #+#             */
-/*   Updated: 2025/09/05 10:28:18 by yannis           ###   ########.fr       */
+/*   Updated: 2025/09/09 10:32:02 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	game_view(t_data_game *g)
 	num_rays = g->data_mlx.width;
 	i = 0;
 	find_player_start(g);
-	draw_background(g);
+	if (draw_background(g) == -1)
+		return (-1);
 	while (i < num_rays)
 	{
 		g->ray_data.ray_angle = g->player_pos.player_angle - g->fov / 2

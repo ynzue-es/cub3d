@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:52:58 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/09 10:12:29 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:47:04 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	main(int argc, char **argv)
 	}
 	mlx_hook(g->data_mlx.window_ptr, KeyPress, KeyPressMask, key_code, g);
 	mlx_hook(g->data_mlx.window_ptr, 17, 0, close_window, g);
-	game_view(g);
+	if (game_view(g) == -1)
+		return (close_window(g), 1);
 	mlx_loop(g->data_mlx.mlx_ptr);
 	return (0);
 }

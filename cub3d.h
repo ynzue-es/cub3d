@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 09:33:21 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/09 10:13:20 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:32:18 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int					key_code(int key, t_data_game *data);
  */
 int					put_wall_segment(t_data_game *g, int x, float perpWallDist,
 						int hit_side);
-void				draw_background(t_data_game *data_game);
+int				draw_background(t_data_game *data_game);
 
 /*
  * ray_casting
@@ -218,9 +218,10 @@ int					size_clear_str(char *line);
 int					add_color(char *line, t_data_game **data_game);
 
 int					free_texture(t_data_game *g);
-void				convet_hex(char **str, int flag_ceil_floor,
+int					convert_hex(char **str, int flag_ceil_floor,
 						t_data_game *data_game);
 char				*switch_hex(int n);
 int					close_window(t_data_game *g);
+void	free_tab(char **tab);
 
 #endif
