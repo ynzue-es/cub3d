@@ -6,7 +6,7 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:41:47 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/08 14:19:52 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:15:07 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,16 @@ int	free_texture(t_data_game *g)
 		j++;
 	}
 	return (0);
+}
+
+int	close_window(t_data_game *g)
+{
+	free_split(g->map_data.map);
+	free_texture(g);
+	mlx_destroy_image(g->data_mlx.mlx_ptr, g->data_pixel.img_ptr);
+	mlx_destroy_window(g->data_mlx.mlx_ptr, g->data_mlx.window_ptr);
+	mlx_destroy_display(g->data_mlx.mlx_ptr);
+	free(g->data_mlx.mlx_ptr);
+	free(g);
+	exit(1);
 }

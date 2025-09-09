@@ -6,12 +6,13 @@
 /*   By: engiusep <engiusep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 10:12:17 by yannis            #+#    #+#             */
-/*   Updated: 2025/09/08 15:08:26 by engiusep         ###   ########.fr       */
+/*   Updated: 2025/09/09 09:58:36 by engiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
+// Choisit si le rayon avance d’abord sur l’axe x ou y méthode DDA
 void	nearest_side(t_data_game *g)
 {
 	if (g->ray_data.side_dist_x < g->ray_data.side_dist_y)
@@ -28,6 +29,7 @@ void	nearest_side(t_data_game *g)
 	}
 }
 
+// Initialise la direction et la distance du rayon sur l’axe x
 void	step_ray_x(t_data_game *g)
 {
 	if (g->ray_data.ray_dir_x < 0)
@@ -44,6 +46,7 @@ void	step_ray_x(t_data_game *g)
 	}
 }
 
+// Initialise la direction et la distance du rayon sur l’axe y
 void	step_ray_y(t_data_game *g)
 {
 	if (g->ray_data.ray_dir_y < 0)
@@ -60,6 +63,9 @@ void	step_ray_y(t_data_game *g)
 	}
 }
 
+/* Lance un rayon, trouve le premier mur touché avec DDA, 
+	puis calcule la distance pour dessiner la colonne correspondante
+*/
 void	ray_cast(t_data_game *g, int i)
 {
 	float	perp_wall_dist;
